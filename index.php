@@ -33,6 +33,8 @@ console.log("sxxxxxxxxxx");
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/>
     <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script>
+    <!-- <script type="text/javascript" src="js/libpannellum.js"></script>
+    <script type="text/javascript" src="js/Pannellum.js"></script> -->
       <!-- <script type="text/javascript" src="/js/Pannellum.js"></script> -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -50,7 +52,7 @@ console.log("sxxxxxxxxxx");
         <hr class="my-1">
         <h6 class="text-center text-secondary">search grave by name in the search box</h6>
         <!-- <form action="getPath.php" method="post" class="p-3"> -->
-          <form   class="p-3" >
+          <form  class="p-3"  >
           <div class="input-group">
             <input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 border-info" placeholder="Search..." autocomplete="off" required>
             <div class="input-group-append">
@@ -77,7 +79,7 @@ console.log("sxxxxxxxxxx");
 
 
   <div class="container">
-     <table id="userTable" border="1" >
+     <!-- <table id="userTable" border="1" >
         <thead>
           <tr>
             <th width="5%">S.no</th>
@@ -87,17 +89,55 @@ console.log("sxxxxxxxxxx");
           </tr>
         </thead>
         <tbody></tbody>
-     </table>
+     </table> -->
+<br>
+     <form>
+       <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+       <div class="form-row">
+         <div class="form-group col-md-6">
+           <label for="inputCity">City</label>
+           <input type="text" class="form-control" id="inputCity">
+         </div>
+         <div class="form-group col-md-4">
+           <label for="inputState">State</label>
+           <select id="inputState" class="form-control">
+             <option selected>Choose...</option>
+             <option>...</option>
+           </select>
+         </div>
+         <div class="form-group col-md-2">
+           <label for="inputZip">Zip</label>
+           <input type="text" class="form-control" id="inputZip">
+         </div>
+       </div>
+       <div class="form-group">
+         <div class="form-check">
+           <input class="form-check-input" type="checkbox" id="gridCheck">
+           <label class="form-check-label" for="gridCheck">
+             Check me out
+           </label>
+         </div>
+       </div>
+
+       <button type="submit" class="btn btn-primary">Sign in</button>
+     </form>
+
+
+
+
   </div>
 
 
 
+<br>
+<br>
 
 
 
 
-<!-- <script type="text/javascript" src="js/libpannellum.js"></script>
-<script type="text/javascript" src="js/Pannellum.js"></script> -->
 <script src="js/script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="js/search.js"></script>

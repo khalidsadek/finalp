@@ -31,7 +31,7 @@ function loading()
 
 
 function  openModal(event,args){
-console.log("======================================");
+console.log("==================================11====");
 from=args;
 
 console.log("args: ");
