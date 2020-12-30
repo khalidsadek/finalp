@@ -20,23 +20,44 @@ console.log("sxxxxxxxxxx");
 <head>
     <meta charset="utf-8">
     <title>Custom hot spots</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
     <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/>
-    <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/> -->
+    <!-- <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script> -->
     <!-- <script type="text/javascript" src="js/libpannellum.js"></script>
     <script type="text/javascript" src="js/Pannellum.js"></script> -->
       <!-- <script type="text/javascript" src="/js/Pannellum.js"></script> -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
   <link rel="stylesheet" href="css/web_Style.css"/>
@@ -53,14 +74,15 @@ console.log("sxxxxxxxxxx");
         <h6 class="text-center text-secondary">search grave by name in the search box</h6>
         <!-- <form action="getPath.php" method="post" class="p-3"> -->
           <form  class="p-3"  >
-          <div class="input-group">
+          <div class="col-md-8 mx-auto bg-light rounded p-4">
             <input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 border-info" placeholder="Search..." autocomplete="off" required>
-            <div class="input-group-append">
+            <div class="col-md-8 mx-auto bg-light rounded p-4">
               <input type="submit" name="submit"  value="Search" class="btn btn-info btn-lg rounded-0" onclick="return getNodeByName()">
             </div>
           </div>
         </form>
       </div>
+
       <div class="col-md-5" style="position: relative;margin-top: -38px;margin-left: 215px;">
         <div class="list-group" id="show-list">
           <!-- Here autocomplete list will be display -->
@@ -90,7 +112,7 @@ console.log("sxxxxxxxxxx");
         </thead>
         <tbody></tbody>
      </table> -->
-<br>
+<!--
      <form>
        <div class="custom-file">
         <input type="file" class="custom-file-input" id="customFile">
@@ -123,7 +145,7 @@ console.log("sxxxxxxxxxx");
        </div>
 
        <button type="submit" class="btn btn-primary">Sign in</button>
-     </form>
+     </form> -->
 
 
 
@@ -132,14 +154,8 @@ console.log("sxxxxxxxxxx");
 
 
 
-<br>
-<br>
-
-
-
-
 <script src="js/script.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <script src="js/search.js"></script>
 
 
