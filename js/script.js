@@ -1,4 +1,5 @@
 
+// $(function(){
 
 
 var id;
@@ -313,3 +314,7 @@ function hotspot(hotSpotDiv, args) {
            return 0;
 
   }
+
+
+
+// })
