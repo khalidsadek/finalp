@@ -262,11 +262,21 @@ console.log(id);
  openModal(null,currentNode);
 
 }
+//
+// $(document).on("click", "a",
+// // $("SearchBtn").click(function(){
 
+
+$(document).ready( function() {
+    // $('.searchBtn').on('click', getNodeByName());
+    $('.searchBtn').click(getNodeByName());
+
+    console.log("|||||||||| button pressed ||||||||||||||");
+});
 
 function getNodeByName()
 {
-
+  console.log("|||||||||| getnbi ||||||||||||||");
    name = document.getElementById('search').value;
 
   $.ajax({
@@ -286,6 +296,7 @@ function getNodeByName()
   });
 
 }
+
 
 
 function hotspot(hotSpotDiv, args) {

@@ -77,7 +77,8 @@ console.log("sxxxxxxxxxx");
           <div class="col-md-8 mx-auto bg-light rounded p-4">
             <input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 border-info" placeholder="Search..." autocomplete="off" required>
             <div class="col-md-8 mx-auto bg-light rounded p-4">
-              <input type="submit" name="submit"  value="Search" class="btn btn-info btn-lg rounded-0" onclick="return getNodeByName()">
+              <!-- <input type="submit" name="submit"  value="Search" class="btn btn-info btn-lg rounded-0" onclick="return getNodeByName()"> -->
+                <input type="submit" id="SearchBtn" name="submit"  value="Search" class="searchBtn btn btn-info btn-lg rounded-0">
             </div>
           </div>
         </form>
