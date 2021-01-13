@@ -222,8 +222,8 @@ if (index==0) {
  // featureHotSpots.shift();
 
 }
-
-function getPath(Destination) {
+$.getPath =    function(Destination){
+// function getPath(Destination) {
 
 console.log("id ::");
 console.log(id);
@@ -266,16 +266,23 @@ console.log(id);
 // $(document).on("click", "a",
 // // $("SearchBtn").click(function(){
 
-
-$(document).ready( function() {
+$( "#SearchBtn" ).click(function() {
+// $(document).ready( function() {
     // $('.searchBtn').on('click', getNodeByName());
-    $('.searchBtn').click(getNodeByName());
+    // console.log("|||||||||| button pressed ||||||||||||||");
+    // $("#SearchBtn").click(getNodeByName());
 
-    console.log("|||||||||| button pressed ||||||||||||||");
+$.getNodeByName();
 });
 
-function getNodeByName()
-{
+
+$.getNodeByName =    function(){
+     // alert('HELLO WORLD');
+ // }
+
+
+// function getNodeByName()
+// {
   console.log("|||||||||| getnbi ||||||||||||||");
    name = document.getElementById('search').value;
 
@@ -289,7 +296,7 @@ function getNodeByName()
 
   // removeHotspots();
       newSearch=1;
-      getPath(response);
+      $.getPath(response);
 
 
     },
