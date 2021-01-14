@@ -16,8 +16,10 @@ var featureHotSpots=new Array();
 
 
 loading();
+// $.loading();
 // loadPoints()
-function loading()
+ function loading()
+//$.loading =    function(){
 {
       // console.log(previuseHotSpot);
  if(id!=null)
