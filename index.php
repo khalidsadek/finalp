@@ -1,17 +1,5 @@
 
 
-<!--
-
-  require("Dijkstra.php"); -->
-<!--
-<script>
-console.log("sxxxxxxxxxx");
-</script>
-
- -->
-
-
-
 
 
 
@@ -21,22 +9,6 @@ console.log("sxxxxxxxxxx");
     <meta charset="utf-8">
     <title>Custom hot spots</title>
 
-
-    <!-- jQuery library -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
-    <!-- Popper JS -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
-
-    <!-- Latest compiled JavaScript -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/> -->
-    <!-- <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script> -->
-    <!-- <script type="text/javascript" src="js/libpannellum.js"></script>
-    <script type="text/javascript" src="js/Pannellum.js"></script> -->
-      <!-- <script type="text/javascript" src="/js/Pannellum.js"></script> -->
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 
 
@@ -93,64 +65,12 @@ console.log("sxxxxxxxxxx");
     </div>
 
     <div id="panorama" ></div>
-
-  </div>
-
-
-  <!-- <script src="script.js"></script> -->
-
-
-  <div class="container">
-     <!-- <table id="userTable" border="1" >
-        <thead>
-          <tr>
-            <th width="5%">S.no</th>
-            <th width="20%">id1</th>
-            <th width="20%">id2</th>
-            <th width="20%">weight</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-     </table> -->
-<!--
-     <form>
-       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="customFile">
-        <label class="custom-file-label" for="customFile">Choose file</label>
-      </div>
-       <div class="form-row">
-         <div class="form-group col-md-6">
-           <label for="inputCity">City</label>
-           <input type="text" class="form-control" id="inputCity">
-         </div>
-         <div class="form-group col-md-4">
-           <label for="inputState">State</label>
-           <select id="inputState" class="form-control">
-             <option selected>Choose...</option>
-             <option>...</option>
-           </select>
-         </div>
-         <div class="form-group col-md-2">
-           <label for="inputZip">Zip</label>
-           <input type="text" class="form-control" id="inputZip">
-         </div>
-       </div>
-       <div class="form-group">
-         <div class="form-check">
-           <input class="form-check-input" type="checkbox" id="gridCheck">
-           <label class="form-check-label" for="gridCheck">
-             Check me out
-           </label>
-         </div>
-       </div>
-
-       <button type="submit" class="btn btn-primary">Sign in</button>
-     </form> -->
-
+    <!-- <div id="panoramaTemp" ></div> -->
 
 
 
   </div>
+
 
 
 

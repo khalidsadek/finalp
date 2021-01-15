@@ -82,6 +82,7 @@ viewer = pannellum.viewer('panorama', {
 
 });
 
+// $( "div.panoramaTemp" ).replaceWith( $( ".panorama" ) );
 if(args==to)
    {
      setTimeout(function() { alert("you have arrived to your distination"); }, 220);

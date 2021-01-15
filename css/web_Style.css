@@ -75,6 +75,16 @@ body{
     text-align: center;
     ext-align: center; */
   }
+  #panoramaTemp {
+      width: 600px;
+      height: 400px;
+      /* display: block; */
+      /* flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      ext-align: center; */
+    }
 
  div.custom-tooltip span {
     visibility: hidden;
