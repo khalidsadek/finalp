@@ -1,5 +1,23 @@
+<?php
+require('phpFile.php');
+require('Dijkstra.php');
+session_start();
+
+//$myfile = fopen("graph.txt", "w");
+ $edges=getJsonFormat();
+ $g = new Graph();
+ foreach($edges as $ed) {
+   $g->addedge($ed['id1'],$ed['id2'],$ed['weight']);
+}
+
+$serialize =serialize($g);
+$_SESSION['graph_arr'] = $serialize;
+//echo $serialized;
 
 
+//print_r(unserialize($serialize));
+
+?>
 
 
 
@@ -45,11 +63,12 @@
         <hr class="my-1">
         <h6 class="text-center text-secondary">search grave by name in the search box</h6>
         <!-- <form action="getPath.php" method="post" class="p-3"> -->
-          <form  class="p-3"  >
+          <form  class="p-3" >
           <div class="col-md-8 mx-auto bg-light rounded p-4">
+            <!-- <input type="hidden" name="ArrayData" value="<?php $serialize ?>"/> -->
             <input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 border-info" placeholder="Search..." autocomplete="off" required>
             <div class="col-md-8 mx-auto bg-light rounded p-4">
-              <input type="submit" name="submit"  value="Search" class="btn btn-info btn-lg rounded-0" onclick="return getNodeByName()">
+              <input type="button"   value="Search" class="btn btn-info btn-lg rounded-0" onclick="getNodeByName()">
             </div>
           </div>
         </form>
