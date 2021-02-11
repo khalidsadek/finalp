@@ -1,9 +1,9 @@
 <?php
 include "connect.php";
-$pageTitle = 'nodes';
+$pageTitle = 'pins';
 try {
 
-  $stmt = $conn->prepare("SELECT * FROM node");
+  $stmt = $conn->prepare("SELECT * FROM pins");
   $stmt->execute();
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
@@ -19,7 +19,9 @@ include "navbar.php";
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Line Name</th>
-      <th scope="col">Image Path</th>
+      <th scope="col">Name</th>
+      <th scope="col">Pitch</th>
+      <th scope="col">Yaw</th>
       <th scope="col">Control</th>
     </tr>
   </thead>

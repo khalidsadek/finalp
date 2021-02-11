@@ -53,7 +53,8 @@ body{
  background-image: url(../green_arrow.png);
  /* text-indent: -10000px; */
  /* animation: 3s ease-in-out infinite both anim; */
-}
+ } 
+
 
 
 .custom-hotspot {
@@ -75,7 +76,17 @@ body{
  /* animation: 3s ease-in-out infinite both anim; */
 }
 
-
+#panorama2 {
+    max-width: 500px;
+    height: 400px;
+    margin-bottom: 50px;
+    /* display: block; */
+    /* flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    ext-align: center; */
+  }
 #panorama {
     width: 100%;
     height: 500px;

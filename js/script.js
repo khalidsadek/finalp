@@ -74,7 +74,7 @@ if(checkType()==0)
     viewer = pannellum.viewer('panorama', {
    "type": "equirectangular",
    "autoRotate": -10,
-   "panorama": "/finalp/images/"+args+".jpg",
+   "panorama": "/finalp/uploads/"+args+".jpg",
    "hotSpots": gethotspots(args) ,
    "autoLoad": true,
    "stopAutoRotate":false,
@@ -160,6 +160,8 @@ var newvalue41="back";
           obj[newUs2]=newValue2;
           if(featureHotSpots[0]==obj[newUs1])
           {
+            //   console.console.log("featureHotSpots[0]  :::::");
+            // console.console.log(featureHotSpots[0]);
                 obj[newUs3]=newValue33;
           }else {
               obj[newUs3]=newValue3;

@@ -4,8 +4,10 @@ $pageTitle = 'nodes';
 session_start();
 
     if (isset($_POST['submit'])) {
+
         $file = $_FILES['file'];
         $fileName = $_FILES['file']['name'];
+        //$fileName = $_FILES['file'] . $_POST['id'];
         $fileTmpName = $_FILES['file']['tmp_name'];
         $fileSize = $_FILES['file']['size'];
         $fileError = $_FILES['file']['error'];
@@ -20,7 +22,7 @@ session_start();
             if ($fileError === 0) {
                 if ($fileSize < 1000000 ) {//500000kb=500mb   my file should be less than 1000000
                     //$fileNameNew = uniqid('', ture).".".$fileActualExt;//getting unique id for the image in microseconds to prevent overriding on existed image
-                    $fileN= $fileName;//.".".$fileActualExt;
+                    $fileN= $_POST['id'].".".$fileActualExt;
                     $fileDestination = 'uploads/'.$fileN;//USING ACTUAL NAME
                     // $fileDestination = 'uploads/'.$fileNameNew;//USING MICROSECONDS NAME
                     move_uploaded_file($fileTmpName, $fileDestination);
@@ -153,4 +155,3 @@ include "navbar.php";
         </div>
     </div>
 </div>
-
