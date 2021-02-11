@@ -3,10 +3,11 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 100px;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 100px !important;">
     <div class="container">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,8 +22,8 @@
             <li class="nav-item <?php if($pageTitle == 'nodes'){echo 'active';}?>">
                 <a class="nav-link" href="/finalp/nodes.php">Nodes</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+            <li class="nav-item <?php if($pageTitle == 'pins'){echo 'active';}?>"">
+                <a class="nav-link" href="/finalp/pins.php">Pins</a>
             </li>
         </ul>
     </div>
@@ -38,4 +39,3 @@ li a:hover{
     border-bottom: yellow 2px solid!important;
 }
 </style>
-

@@ -2,18 +2,46 @@
 $pageTitle = 'nodes';
 include "connect.php";
 $node = $_GET['node'];
+###################################################################
+#############################PINS##################################
+###################################################################
+////////////////////////INSERT PIN//////////////////////////
+try{
+if(isset($_POST['submit2'])){
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+  $lineNum = $_POST['lineNum'];
+  $pitch = $_POST['pitch'];
+  $yaw = $_POST['yaw'];
+  $info = $_POST['info'];
+  $nodeID = $node;//$_POST['nodeID'];
 
-$query = $conn->prepare("SELECT * FROM node where id=$node");
-$query->execute();
-$no = $query->fetch(PDO::FETCH_ASSOC);
+  $insertPin = "INSERT INTO pin (id, name, lineNum, pitch, yaw, info, nodeID) VALUES (?,?,?,?,?,?,?)";
+  $conn->prepare($insertPin)->execute([$id, $name, $lineNum, $pitch, $yaw, $info, $nodeID]);
+header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+} catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+////////////////////////GET PIN////////////////////////////////////
 try {
-
-  $stmt = $conn->prepare("SELECT * FROM hotspot WHERE id1=$node");
-  $stmt->execute();
-  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $stmtPin = $conn->prepare("SELECT * FROM pin WHERE nodeID=$node ORDER BY id ASC");
+  $stmtPin->execute();
+  $resulPin = $stmtPin->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();
 }
+###################################################################
+
+
+###################################################################
+###########################NODE####################################
+###################################################################
+/////////////////////GET CURRENT NODE DATA////////////////////////
+$query = $conn->prepare("SELECT * FROM node where id=$node");
+$query->execute();
+$no = $query->fetch(PDO::FETCH_ASSOC);
+///////////////////////GET NODES FOR ADD NEXT NODE TO HOTSPOT ADDITION FORM/////////////////////////////////////
 try {
 
     $stmt2 = $conn->prepare("SELECT * FROM node");
@@ -22,7 +50,23 @@ try {
   } catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
   }
-################################################
+###################################################################
+
+
+
+###################################################################
+#########################HOTSPOTS#################################
+###################################################################
+///////////////////////////GET HOTSPOTS RELATED TO CURRENT NODE////////////////////////////
+try {
+  $stmt = $conn->prepare("SELECT * FROM hotspot WHERE id1=$node");
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+
+///////////////////////////ADD HOTSPOT////////////////////////////
 try {
     if(isset($_POST['submit'])){
       //$node_id1 = $_POST['node_id1'];
@@ -44,6 +88,8 @@ try {
   } catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
 }
+###################################################################
+###################################################################
 
 include "navbar.php";
 ?>
@@ -85,7 +131,47 @@ include "navbar.php";
     <?php } ?>
   </tbody>
 </table>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-hotspot-modal">Add Hotspot</button>
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#add-hotspot-modal">Add Hotspot</button>
+
+<br>
+<br>
+<br>
+<hr>
+</div>
+<div class="container" style="margin-top:100px;margin-bottom:100px">
+  <table class="table table-hover text-center">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Line Number</th>
+        <th scope="col">Name</th>
+        <th scope="col">Pitch</th>
+        <th scope="col">Yaw</th>
+        <th scope="col">Info</th>
+        <th scope="col">Control</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php foreach($resulPin as $item) { ?>
+      <tr>
+        <th scope="row"><?php echo $item['id']; ?></th>
+        <td><?php echo $item['lineNum']; ?></td>
+        <td><?php echo $item['name']; ?></td>
+        <td><?php echo $item['pitch']; ?></td>
+        <td><?php echo $item['yaw']; ?></td>
+        <td><?php echo $item['info']; ?></td>
+        <td>
+            <!-- <a href="/finalp/editNode.php?node=<?php echo $item['id'];?>" type="button" class="btn btn-info">Edit Node</a> -->
+            <button  type="button" data-id="<?php echo $item['id'];?>" class="btn btn-danger deletePin">Delete Node</button>
+        </td>
+      </tr>
+      <?php } ?>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createPin">
+    Create Pin
+  </button>
+  <?php include 'pins.php' ?>
 </div>
 
 <?php
@@ -274,4 +360,80 @@ function hotspot(hotSpotDiv, args) {
      }
 
 
+</script>
+<!-- Modal -->
+<div class="modal fade" id="createPin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form action="" method="post">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Line Number</label>
+                <input type="text" class="form-control" name="lineNum">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Name</label>
+                <input type="text" class="form-control" name="name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Pin ID</label>
+                <input type="text" class="form-control" name="id">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Pitch</label>
+                <input type="text" class="form-control" name="pitch">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Yaw</label>
+                <input type="text" class="form-control" name="yaw">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Node</label>
+                <input type="text" class="form-control" name="nodeID" value="<?php echo $node;?>" disabled>
+                <!-- <select class="form-control" name="nodeID">
+                  <?php
+                  foreach ($result2 as $nodes) { ?>
+                    <option value="<?php echo $nodes['id']; ?>"><?php echo $nodes['id']; ?></option>
+                <?php  }?>
+
+                </select> -->
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Info</label>
+                <input type="text" class="form-control" name="info">
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" name="submit2" class="btn btn-primary">Add Pin</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+$(".deletePin").click(function(){
+  var id = $(this).data('id');
+  var x = confirm("Are you sure?");
+  if(x == true){
+    window.location = '/finalp/delete-pin.php?pin='+id;
+
+  }
+})
 </script>
