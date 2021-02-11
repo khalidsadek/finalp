@@ -4,10 +4,21 @@
  text-align:center;
 
 }
-
+ */
 body{
-  background-color: #edf9f3;
+  background-color: #F1F1F1;
 }
+
+.nav-main{
+  width:100%;
+  height: 60px;
+  background-color: #FFF;
+  display: flex;
+  flex-wrap: warp;
+  z-index: 1000;
+}
+
+/*
 .cn{
   display: inline-block;
 } */
@@ -66,8 +77,8 @@ body{
 
 
 #panorama {
-    width: 600px;
-    height: 400px;
+    width: 100%;
+    height: 500px;
     /* display: block; */
     /* flex-direction: column;
     justify-content: center;
@@ -75,16 +86,16 @@ body{
     text-align: center;
     ext-align: center; */
   }
-  #panoramaTemp {
-      width: 600px;
-      height: 400px;
-      /* display: block; */
-      /* flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      ext-align: center; */
-    }
+/*  #panoramaTemp {*/
+/*      width: 600px;*/
+/*      height: 400px;*/
+/*      !* display: block; *!*/
+/*      !* flex-direction: column;*/
+/*      justify-content: center;*/
+/*      align-items: center;*/
+/*      text-align: center;*/
+/*      ext-align: center; *!*/
+/*    }*/
 
  div.custom-tooltip span {
     visibility: hidden;

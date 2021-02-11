@@ -1,11 +1,12 @@
 <?php
+$pageTitle = 'nodes';
 include "connect.php";
 $hotspot_id = $_GET['hotspot_id'];
 $node = $_GET['node'];
 
 try {
 
-    $stmt = $conn->prepare("SELECT * FROM hotspots WHERE id=$hotspot_id");
+    $stmt = $conn->prepare("SELECT * FROM hotspot WHERE id2=$hotspot_id");
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
   } catch(PDOException $e) {
@@ -14,7 +15,7 @@ try {
 
 try {
 
-    $stmt2 = $conn->prepare("SELECT * FROM nodes");
+    $stmt2 = $conn->prepare("SELECT * FROM node");
     $stmt2->execute();
     $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
   } catch(PDOException $e) {
@@ -29,7 +30,7 @@ try {
       $yaw = $_POST['yaw'];
       $weight = $_POST['weight'];
 
-      $sql = "UPDATE hotspots SET node_id1=?, node_id2=?, pitch=?, yaw=?, weight=? WHERE id=?";
+      $sql = "UPDATE hotspot SET id1=?, id2=?, pitch=?, yaw=?, weight=? WHERE id2=?";
       $stmt3 = $conn->prepare($sql);
       $stmt3->execute([$node, $node_id2, $pitch, $yaw, $weight, $hotspot_id]);
       /////////////////////////////
@@ -51,14 +52,14 @@ try {
         <form action="edit-hotspot.php" method="POST">
                     <div class="form-group row">
                         <label class="col-form-label">Current Node</label>
-                        <input disabled type="text" class="form-control" value="<?php echo $result['node_id1'] ?>" name="node_id1">
+                        <input disabled type="text" class="form-control" value="<?php echo $result['id1'] ?>" name="node_id1">
                     </div>
                     <div class="form-group row">
                         <label>Next Node</label>
                         <select class="form-control" name="node_id2">
                         <?php foreach($result2 as $item) {
                             if($item['id'] != $result['node_id1']) {?>
-                                <option value="<?php echo $item['id']; ?>" <?php if($item['id'] == $result['node_id2']){echo 'selected';}else{echo '';} ?> ><?php echo $item['id']; ?></option>
+                                <option value="<?php echo $item['id']; ?>" <?php if($item['id'] == $result['id2']){echo 'selected';}else{echo '';} ?> ><?php echo $item['id']; ?></option>
 
                             <?php }
                                 } ?>

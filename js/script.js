@@ -71,11 +71,11 @@ if(checkType()==0)
 
   // if(viewer!=null)
   removeHotspots();
-viewer = pannellum.viewer('panorama', {
+    viewer = pannellum.viewer('panorama', {
    "type": "equirectangular",
    "autoRotate": -10,
    "panorama": "/finalp/images/"+args+".jpg",
-   "hotSpots": gethotspots(args) ,
+   "hotSpots": gethotspots(args) ,
    "autoLoad": true,
    "stopAutoRotate":false,
    "hfov":150

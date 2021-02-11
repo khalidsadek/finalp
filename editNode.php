@@ -1,7 +1,11 @@
 <?php
+$pageTitle = 'nodes';
 include "connect.php";
 $node = $_GET['node'];
 
+$query = $conn->prepare("SELECT * FROM node where id=$node");
+$query->execute();
+$no = $query->fetch(PDO::FETCH_ASSOC);
 try {
 
   $stmt = $conn->prepare("SELECT * FROM hotspot WHERE id1=$node");
@@ -39,17 +43,13 @@ try {
   } catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
 }
+
+include "navbar.php";
 ?>
-<!doctype html>
-<html lang="en">
-    <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    </head>
-<body>
+
 <div class="container">
     <div class="img text-center">
-    <img src="img.jpg" class="img-fluid" alt="Responsive image " style="max-width: 500px;height:300px">
+    <img src="/finalp/<?php echo $no['info'] ?>" class="img-fluid" alt="Responsive image " style="max-width: 500px;height:300px">
     </div>
 <table class="table table-hover text-center">
   <thead>
@@ -71,7 +71,7 @@ try {
       <td><?php echo $item['yaw']; ?></td>
       <td><?php echo $item['weight']; ?></td>
       <td>
-          <a type="button" href="/finalp/edit-hotspot.php?hotspot_id=<?php echo $item['id']?>&node=<?php echo $node?>" class="btn btn-info edit">Edit Hotspots</a>
+          <a type="button" href="/finalp/edit-hotspot.php?hotspot_id=<?php echo $item['id2']?>&node=<?php echo $node?>" class="btn btn-info edit">Edit Hotspots</a>
           <a href="/finalp/delete-hotspot.php?hotspot=<?php echo $item['id'];?>" type="button" class="btn btn-danger">Delete Hotspots</a>
       </td>
     </tr>
@@ -80,9 +80,10 @@ try {
 </table>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-hotspot-modal">Add Hotspot</button>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+<?php
+include "footer.php";
+?>
 
 <div id="edit-modal"></div>
 
@@ -139,5 +140,4 @@ try {
     </div>
   </div>
 </div>
-</body>
-</html>
+
