@@ -79,6 +79,9 @@ try {
       $sql = "INSERT INTO hotspot (id1, id2, pitch, yaw, weight)
       VALUES ('$node', '$id2', '$pitch', '$yaw', '$weight')";
       $conn->exec($sql);
+      $sql99 = "INSERT INTO hotspot (id1, id2, pitch, yaw, weight)
+      VALUES ('$id2', '$node', '$pitch', '$yaw', '$weight')";
+      $conn->exec($sql99);
       /////////////////////////////
       $sql2 = "UPDATE node SET hasHotspots='1' WHERE id=$node";
       $stmt3 = $conn->prepare($sql2);

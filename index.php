@@ -46,7 +46,25 @@ include "navbar.php";
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!--<input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 border-info" placeholder="Search..." autocomplete="off" required>-->
+<script>
+// $.ajax({
+//   url: 'handleRequests.php',
+//   type: 'POST',
+//   data: {name: name},
+//   async: false,
+//   success: function (response) {
+//     // console.log(response);
+//
+// // removeHotspots();
+//     newSearch=1;
+//     getPath(response);
+//
+//
+//   },
+// });
+</script>
 <script src="js/script.js"></script>
+
 <script src="js/search.js"></script>
 <!--<input type="button"   value="Search" class="btn btn-info btn-lg rounded-0" onclick="getNodeByName()">-->
 </body>

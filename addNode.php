@@ -79,6 +79,7 @@ session_start();
                     $fileN= $fileName;//.".".$fileActualExt;
                     $fileDestination = 'uploads/'.$fileN;//USING ACTUAL NAME
                     // $fileDestination = 'uploads/'.$fileNameNew;//USING MICROSECONDS NAME
+                    echo "befoooooooreeeee moveeeeeeeeeee addNideee,,";
                     move_uploaded_file($fileTmpName, $fileDestination);
                     //header("Location: /finalp/nodes.php");
                 } else {

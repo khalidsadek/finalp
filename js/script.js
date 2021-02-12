@@ -74,7 +74,7 @@ if(checkType()==0)
     viewer = pannellum.viewer('panorama', {
    "type": "equirectangular",
    "autoRotate": -10,
-   "panorama": "/finalp/uploads/"+args+".jpg",
+   "panorama": "/finalp/"+args+".jpg",
    "hotSpots": gethotspots(args) ,
    "autoLoad": true,
    "stopAutoRotate":false,
@@ -82,11 +82,10 @@ if(checkType()==0)
 
 });
 
-// $( "div.panoramaTemp" ).replaceWith( $( ".panorama" ) );
+
 if(args==to)
    {
      setTimeout(function() { alert("you have arrived to your distination"); }, 220);
-    // alert("you have arrived to your distination");
    }
 }
 
