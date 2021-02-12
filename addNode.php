@@ -18,7 +18,7 @@ session_start();
 
         $allowed = array('jpg', 'jpeg', 'png');
 
-        if (in_array($fileActualExt, $allowed)) {
+        //if (in_array($fileActualExt, $allowed)) {
             if ($fileError === 0) {
                 if ($fileSize < 1000000 ) {//500000kb=500mb   my file should be less than 1000000
                     //$fileNameNew = uniqid('', ture).".".$fileActualExt;//getting unique id for the image in microseconds to prevent overriding on existed image
@@ -33,9 +33,9 @@ session_start();
             } else {
                 echo "there was an error uploading your file !";
             }
-        } else{
-            echo "you cannot upload files of this type !";
-        }
+        // } else{
+        //     echo "you cannot upload files of this type !";
+        // }
 
        $linename = $_POST['linename'];
        $id = $_POST['id'];
@@ -112,7 +112,7 @@ include "navbar.php";
                     <h4 class="mb-0">ADD NODE FORM</h4>
                 </div>
                 <div class="card-body">
-                    <form class="form" role="form" action="addNode.php" method="post" enctype="multipart/form-data">
+                    <form class="form" role="form" action="" method="post" enctype="multipart/form-data">
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">NODE ID</label>
                             <div class="col-lg-9">

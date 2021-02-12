@@ -124,7 +124,7 @@ include "navbar.php";
       <td><?php echo $item['yaw']; ?></td>
       <td><?php echo $item['weight']; ?></td>
       <td>
-          <a type="button" href="/finalp/edit-hotspot.php?hotspot_id=<?php echo $item['id2']?>&node=<?php echo $node?>" class="btn btn-info edit">Edit Hotspots</a>
+          <a type="button" href="/finalp/edit-hotspot.php?currentnode=<?php echo $item['id1']?>&nextnode=<?php echo $item['id2'];?>" class="btn btn-info edit">Edit Hotspots</a>
           <button data-currentnode="<?php echo $item['id1'];?>" data-nextnode="<?php echo $item['id2'];?>" type="button" class="btn btn-danger deleteHotspot">Delete Hotspots</button>
       </td>
     </tr>
@@ -310,20 +310,23 @@ var newvalue41="back";
           // {
           obj[newUs1]=obj['id'];
     //      obj[newUs2]=newValue2;
-          if(featureHotSpots[0]==obj[newUs1])
-          {
-                obj[newUs3]=newValue33;
-          }else {
+          // if(featureHotSpots[0]==obj[newUs1])
+          // {
+          //       obj[newUs3]=newValue33;
+          // }else {
               obj[newUs3]=newValue3;
-          }
+          // }
 
-          obj[newUs4]=newValue4;
+          // obj[newUs4]=newValue4;
         // }
+        }
+        else{
+           obj[newUs3]=newValue32;
         }
           // else {
           //   // if(checkType()==0 && previuseHotSpot.indexOf(obj['id'])!=-1)
           //   // {
-          //     obj[newUs1]=obj['name'];
+              obj[newUs1]=obj['name'];
           //     if(obj[newUs1]==name)
           //     {
           //       obj[newUs3]=newValue34;
@@ -339,9 +342,9 @@ var newvalue41="back";
 
           // }
           strings.push(obj);
-          hotSpotsIds.push(obj['id']);
+          // hotSpotsIds.push(obj['id']);
         }
-        console.log(strings);
+        // console.log(strings);
         return strings;
 }
 

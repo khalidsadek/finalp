@@ -9,47 +9,34 @@ try {
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();
 }
+
+try {
+
+  $stmt1 = $conn->prepare("SELECT line_name FROM node GROUP BY line_name ORDER BY line_name ASC");
+  $stmt1->execute();
+  $resultLineNames = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
 ################################################
 include "navbar.php";
 ?>
 
 <div class="container">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
 
+  <div style="width:520px;margin:0px auto;margin-top:30px;">
+    <h5>select line name :</h5>
+    <select class="livesearch selectLine" style="width:400px;">
+      <option value="0">Choose line</option>
+      <?php foreach ($resultLineNames as $item): ?>
+            <option value="<?php echo $item['line_name'] ?>"><?php echo $item['line_name'] ?></option>
+          <?php endforeach; ?>
 
-
-
-<div class="container">
-
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <!-- /.box-header -->
-        <div class="box-body">
-          <form>
-            <div class="form-group row">
-              <label for="" class="col-sm-2 form-control-label">Country</label>
-              <div class="col-sm-10">
-                <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                    <option data-tokens="china">China</option>
-                    <option data-tokens="malayasia">Malayasia</option>
-                    <option data-tokens="singapore">Singapore</option>
-                </select>
-
-              </div>
-            </div>
-          </form>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
-    </div>
-    <!-- /.col -->
+    </select>
   </div>
-  <!-- /.row -->
-</div>
-<!-- /.container -->
+
+
+
 <table class="table table-hover text-center">
   <thead>
     <tr>
@@ -59,8 +46,12 @@ include "navbar.php";
       <th scope="col">Control</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="nodes-table">
   <?php foreach($result as $item) { ?>
+    <!-- ///iffff
+      $(".livesearch").chosen()!=$item['line_name']
+      return
+////////////////////////////// -->
     <tr>
       <th scope="row"><?php echo $item['id']; ?></th>
       <td><?php echo $item['line_name']; ?></td>
@@ -81,7 +72,7 @@ include "navbar.php";
 include "footer.php";
 ?>
 <script>
-$(".deleteNode").click(function(){
+$(document).on('click','.deleteNode',function(){
   var id = $(this).data('id');
   var x = confirm("Are you sure?");
   if(x == true){
@@ -90,5 +81,18 @@ $(".deleteNode").click(function(){
   }
 })
 
-$("#")
+$(document).on('change','.selectLine',function(){
+  var line = $(this).val();
+  $.ajax({
+          url: 'handleRequests.php',
+          type: 'GET',
+          data: {line: line},
+          async: false,
+          success: function(response){
+            $('#nodes-table').replaceWith(response);
+            console.log(response);
+          },
+          }
+      );
+})
 </script>

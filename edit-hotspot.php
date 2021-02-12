@@ -1,12 +1,12 @@
 <?php
 $pageTitle = 'nodes';
 include "connect.php";
-$hotspot_id = $_GET['hotspot_id'];
-$node = $_GET['node'];
+$currentnode = $_GET['currentnode'];
+$nextnode = $_GET['nextnode'];
 
 try {
 
-    $stmt = $conn->prepare("SELECT * FROM hotspot WHERE id2=$hotspot_id");
+    $stmt = $conn->prepare("SELECT * FROM hotspot WHERE id1=$currentnode AND id2=$nextnode");
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
   } catch(PDOException $e) {
@@ -25,16 +25,17 @@ try {
 try {
     if(isset($_POST['submit'])){
       //$node_id1 = $_POST['node_id1'];
-      $node_id2 = $_POST['node_id2'];
+      $id2 = $_POST['id2'];
       $pitch = $_POST['pitch'];
       $yaw = $_POST['yaw'];
       $weight = $_POST['weight'];
 
-      $sql = "UPDATE hotspot SET id1=?, id2=?, pitch=?, yaw=?, weight=? WHERE id2=?";
-      $stmt3 = $conn->prepare($sql);
-      $stmt3->execute([$node, $node_id2, $pitch, $yaw, $weight, $hotspot_id]);
+      $sql5 = "UPDATE hotspot SET id2=?, pitch=?, yaw=?, weight=? WHERE id1=$currentnode AND id2=$nextnode";
+      //$sql5 = "UPDATE hotspot SET id2=?, pitch=?, yaw=?, weight=? WHERE id1=$currentnode";
+      $stmt5 = $conn->prepare($sql5);
+      $stmt5->execute([$id2, $pitch, $yaw, $weight]);
       /////////////////////////////
-      header("Location: /finalp/editNode.php?node=$node");
+      header("Location: /finalp/editNode.php?node=$currentnode");
     }
   } catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
@@ -49,16 +50,16 @@ try {
 <body>
 <div class="container">
     <div class="form">
-        <form action="edit-hotspot.php" method="POST">
+        <form action="" method="POST">
                     <div class="form-group row">
                         <label class="col-form-label">Current Node</label>
-                        <input disabled type="text" class="form-control" value="<?php echo $result['id1'] ?>" name="node_id1">
+                        <input disabled type="text" class="form-control" value="<?php echo $result['id1'] ?>" name="id1">
                     </div>
                     <div class="form-group row">
                         <label>Next Node</label>
-                        <select class="form-control" name="node_id2">
+                        <select class="form-control" name="id2">
                         <?php foreach($result2 as $item) {
-                            if($item['id'] != $result['node_id1']) {?>
+                            if($item['id'] != $result['id1']) {?>
                                 <option value="<?php echo $item['id']; ?>" <?php if($item['id'] == $result['id2']){echo 'selected';}else{echo '';} ?> ><?php echo $item['id']; ?></option>
 
                             <?php }
