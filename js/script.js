@@ -60,21 +60,27 @@ if(checkType()==0)
        id=args;
        currentNode=args
 
+var path = null;
+       $.ajax({
+         url: 'handleRequests.php',
+         type: 'GET',
+         data: {nodeId1: args},
+         async: false,
+         success: function (response) {
+            path = response;
 
- //}
+          console.log(path);
 
-   // }
-    // manageHotSpots(args);
+         },
+       });
 
 
-  // id=args;
 
-  // if(viewer!=null)
   removeHotspots();
     viewer = pannellum.viewer('panorama', {
    "type": "equirectangular",
    "autoRotate": -10,
-   "panorama": "/finalp/"+args+".jpg",
+   "panorama": "/finalp/"+path,
    "hotSpots": gethotspots(args) ,
    "autoLoad": true,
    "stopAutoRotate":false,

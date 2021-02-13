@@ -2,6 +2,7 @@
 $pageTitle = 'nodes';
 include "connect.php";
 $node = $_GET['node'];
+session_start();
 ###################################################################
 #############################PINS##################################
 ###################################################################
@@ -98,14 +99,49 @@ include "navbar.php";
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
 <link rel="stylesheet" href="/finalp/css/web_Style.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
 
 <div class="container">
-    <!-- <div class="img text-center">
-    <img src="/finalp/<?php echo $no['info'] ?>" class="img-fluid" alt="Responsive image " style="max-width: 500px;height:300px">
-    </div> -->
-<div id="panorama2" class="img-responsive"></div>
+  <input hidden id="current" value="<?php echo $node;?>" >
+<div class="row">
+  <div class="col-8">
+    <div id="panorama2" class="img-responsive"></div>
+  </div>
+  <div class="col-4 " style="margin-top:150px">
+
+    <div class="row justify-content-center">
+      <div class="row justify-content-center">
+        <select class="livesearch SelectToMove" style="width:400px;">
+          <option value="0">Choose Object to move</option>
+
+          <?php foreach ($result as $h){ ?>
+                <option value="<?php echo $h['id2']; ?>"><?php echo $h['id2']; ?></option>
+              <?php } ?>
+          <?php foreach ($resulPin as $p) { ?>
+                <option value="<?php echo $p['name']; ?>"><?php echo $p['name']; ?></option>
+              <?php } ?>
+
+        </select>
+      </div>
+    </div>
+    <div id="editspot">
+    <div class="row justify-content-center">
+      <button id="pitchP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-up"></i></button>
+    </div>
+    <div class="row justify-content-center">
+      <button id="yawM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-left"></i></button>
+      <button id="yawP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;margin-left:30px"><i class="fas fa-arrow-right"></i></button>
+    </div>
+    <div class="row justify-content-center">
+      <button id="pitchM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-down"></i></button>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+
+<div class="container">
 
 <table class="table table-hover text-center">
   <thead>
@@ -128,7 +164,7 @@ include "navbar.php";
       <td><?php echo $item['weight']; ?></td>
       <td>
           <a type="button" href="/finalp/edit-hotspot.php?currentnode=<?php echo $item['id1']?>&nextnode=<?php echo $item['id2'];?>" class="btn btn-info edit">Edit Hotspots</a>
-          <button data-currentnode="<?php echo $item['id1'];?>" data-nextnode="<?php echo $item['id2'];?>" type="button" class="btn btn-danger deleteHotspot">Delete Hotspots</button>
+          <button data-currentnode="<?php echo $item['id1'];?>" data-nextnode="<?php echo $item['id2'];?>" type="button" class="btn btn-danger deleteHotspot"><i class="fas fa-trash-alt"></i></button>
       </td>
     </tr>
     <?php } ?>
@@ -239,6 +275,25 @@ include "footer.php";
   </div>
 </div>
 <script>
+$(document).on('change','.SelectToMove',function(){
+  var target = $(this).val();
+  var current = $("#current").val();
+  function isNumeric(target) {
+     return !isNaN(target) && !isNaN(parseFloat(target));
+  }
+  if(isNumeric(target)){
+    $.ajax({
+      url:'/finalp/handleRequests.php',
+      type: 'GET',
+      data: {spot:target,
+            current:current
+            },
+      success: function(response){
+        $("#editspot").replaceWith(response);
+      }
+    })
+  }
+})
 $(".deleteHotspot").click(function(){
   var id1 = $(this).data('currentnode');
   var id2 = $(this).data('nextnode');
@@ -253,7 +308,7 @@ $(".deleteHotspot").click(function(){
 //console.log(<?php echo $no['info']?>);
 viewer = pannellum.viewer('panorama2', {
 "type": "equirectangular",
-"autoRotate": -10,
+// "autoRotate": -10,
 "panorama": "/finalp/<?php echo $no['info']?>",
 "hotSpots": gethotspots(<?php echo $no['id']?>) ,
 "autoLoad": true,
@@ -262,9 +317,9 @@ viewer = pannellum.viewer('panorama2', {
 
 });
 
-
 function gethotspots(p1)
 {
+
 
 hotspots=new Array();
 var newUs ="createTooltipFunc" ;
@@ -272,13 +327,12 @@ var newValue= hotspot;
 var newUs1 ="createTooltipArgs" ;
 var newValue1= "";
 var newUs2 ="clickHandlerFunc" ;
-//var newValue2= openModal;
+var newValue2= "";
 var newUs3 ="cssClass";
 var newValue3="park-hot-spot hs-park-overview";
 var newValue32="custom-hotspot";
 var newValue33="custom-hotspot-here";
 var newValue34="custom-hotspot-green-grave";
-// var newValue32="custom-hotspot-grave";
 var newUs4="text";
 var newValue4="come here";
 var newvalue41="back";
@@ -306,50 +360,38 @@ var newvalue41="back";
         {
           var obj = JSON.parse(jsons[i]);
           obj[newUs]=newValue;
-          // obj[newUs2]=newValue2;
-          // if(obj['cssClass']==null)
+
           if(obj['name']==null){
-          // if(checkType()==1 || (checkType()==0 && featureHotSpots.indexOf(obj['id'])!=-1))
-          // {
+
           obj[newUs1]=obj['id'];
-    //      obj[newUs2]=newValue2;
-          // if(featureHotSpots[0]==obj[newUs1])
-          // {
-          //       obj[newUs3]=newValue33;
-          // }else {
-              obj[newUs3]=newValue3;
-          // }
+          obj[newUs3]=newValue3;
 
-          // obj[newUs4]=newValue4;
-        // }
+
+          obj[newUs4]=newValue4;
+
         }
-        else{
-           obj[newUs3]=newValue32;
-        }
-          // else {
-          //   // if(checkType()==0 && previuseHotSpot.indexOf(obj['id'])!=-1)
-          //   // {
+          else {
+
               obj[newUs1]=obj['name'];
-          //     if(obj[newUs1]==name)
-          //     {
-          //       obj[newUs3]=newValue34;
-          //     }
-          //     else {
-          //       obj[newUs3]=newValue32;
-          //     }
-          //
-          //     // obj[newUs4]=;
-          //     // obj[newUs4]=newvalue41;
-          //    // }
-          // }
+              if(obj[newUs1]==name)
+              {
+                obj[newUs3]=newValue34;
+              }
+              else {
+                obj[newUs3]=newValue32;
+              }
 
-          // }
+
+          }
+
+
           strings.push(obj);
-          // hotSpotsIds.push(obj['id']);
+
         }
-        // console.log(strings);
+
         return strings;
 }
+
 
 function hotspot(hotSpotDiv, args) {
 

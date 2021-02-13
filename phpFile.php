@@ -59,6 +59,19 @@ function searchName($name)
 
   }
 
+  function getNodePath($nodeId1)
+  {
+      $conn=connect();
+      $sql = "SELECT `info` FROM node WHERE id='$nodeId1'";
+      $result = $conn->query($sql);
+
+        $result= $result->fetch_assoc();
+
+        return $result['info'];
+  }
+
+
+
 
 
 
