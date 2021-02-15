@@ -164,7 +164,7 @@ include "navbar.php";
       <td><?php echo $item['yaw']; ?></td>
       <td><?php echo $item['weight']; ?></td>
       <td>
-          <a type="button" href="/finalp/edit-hotspot.php?currentnode=<?php echo $item['id1']?>&nextnode=<?php echo $item['id2'];?>" class="btn btn-info edit"><i class="far fa-edit"></i></a>
+          <button data-nextNodeID="<?php echo $item['id2']; ?>" type="button" class="btn btn-info editHotspot"><i class='far fa-edit'></i></button>
           <button data-currentnode="<?php echo $item['id1'];?>" data-nextnode="<?php echo $item['id2'];?>" type="button" class="btn btn-danger deleteHotspot"><i class="fas fa-trash-alt"></i></button>
       </td>
     </tr>
@@ -194,14 +194,14 @@ include "navbar.php";
     <tbody id="pins-tbody">
     <?php foreach($resulPin as $item) { ?>
       <tr>
-        <th scope="row"><?php echo $item['id']; ?></th>
+        <td scope="row"><?php echo $item['id']; ?></td>
         <td><?php echo $item['lineNum']; ?></td>
         <td><?php echo $item['name']; ?></td>
         <td><?php echo $item['pitch']; ?></td>
         <td><?php echo $item['yaw']; ?></td>
         <td><?php echo $item['info']; ?></td>
         <td>
-            <!-- <a href="/finalp/editNode.php?node=<?php echo $item['id'];?>" type="button" class="btn btn-info">Edit Pin</a> -->
+            <button type="button"  class="btn btn-info editPinss"><i class='far fa-edit'></i></button>
             <button  type="button" data-id="<?php echo $item['id'];?>" class="btn btn-danger deletePin"><i class="fas fa-trash-alt"></i></button>
         </td>
       </tr>
@@ -221,7 +221,6 @@ include "footer.php";
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- <script src="/finalp/js/script.js"></script> -->
-<div id="edit-modal"></div>
 
 <!-- Modal -->
 <div class="modal fade" id="add-hotspot-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -737,3 +736,204 @@ $(document).on('click','.deletePin',function(){
   }
 })
 </script>
+
+
+<script>
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////EDITHOTSPOTS//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+$(document).on('click','.editHotspot',function(){
+  $("#edit-hotspot-modal").show('show');
+  $tr = $(this).closest('tr');
+  
+  var data = $tr.children("td").map(function(){
+    return $(this).text();
+  }).get();
+  console.log(data)
+
+  $("#id2").val(data[0]);
+  $("#pitch").val(data[1]);
+  $("#yaw").val(data[2]);
+  $("#weight").val(data[3]);
+  
+})
+$("#update-hotspot").click(function(){
+  //
+  
+})
+
+function edit_htspt(){
+  var data = $("#update-hotspot-form").serialize();
+  //console.log()
+   $.ajax({
+    type: "GET",
+    url: "edit-hotspot.php",
+    data: data,
+    //dataType: "dataType",
+    success: function (response) {
+      console.log(response)
+      location.reload()
+    }
+  });
+}
+</script>
+
+<div class="modal" id="edit-hotspot-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" onclick="$('#edit-hotspot-modal').hide()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="container">
+    <div class="form">
+        <form id="update-hotspot-form">
+                    <div class="form-group row">
+                        <label class="col-form-label">Current Node</label>
+                        <input disabled type="text" class="form-control" value="<?php echo $node ?>">
+                        <input hidden type="text" class="form-control" value="<?php echo $node ?>" name="id1">
+                    </div>
+                    <div class="form-group row">
+                        <label>Next Node</label>
+                        <select class="form-control" name="id2" id="id2">
+                          <?php foreach($result2 as $item){?>  
+                            <option value="<?php echo $item['id']; ?>"><?php echo $item['id']; ?></option>
+                            <?php } ?>
+                        </select>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label">Pitch</label>
+                        <input type="text" class="form-control" name="pitch" value="" id="pitch">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label">Yaw</label>
+                        <input type="text" class="form-control" name="yaw" value="" id="yaw">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label">Weight</label>
+                        <input type="text" class="form-control" name="weight" value="" id="weight">
+                    </div>
+
+        </form>
+    </div>
+</div>
+      </div>
+      <div class="modal-footer">
+      <button type="button" onclick="edit_htspt()" id="update-hotspot" class="btn btn-primary">Update Hotspot</button>
+            <button type="button" onclick="$('#edit-hotspot-modal').hide()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////EDITpins//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+$(document).on('click','.editPinss',function(){
+  $("#edit-pin-modal").show('show');
+  $tr = $(this).closest('tr');
+  
+  var data = $tr.children("td").map(function(){
+    return $(this).text();
+  }).get();
+  console.log(data)
+
+   $("#pinID").val(data[0]);
+  $("#LineNumber").val(data[1]);
+  $("#pinName").val(data[2]);
+  $("#pitchPin").val(data[3]);
+  $("#yawPin").val(data[4]);
+  $("#info").val(data[5]); 
+  
+})
+
+
+function edit_pin(){
+  var data = $("#update-pin-form").serialize();
+   console.log(data)
+    $.ajax({
+    type: "GET",
+    url: "edit-pin.php",
+    data: data,
+    success: function (response) {
+      console.log(response)
+      location.reload()
+    }
+  });
+}
+</script>
+<div class="modal" id="edit-pin-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" onclick="$('#edit-pin-modal').hide()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="container">
+          <form action="" id="update-pin-form">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Line Number</label>
+                <input type="text" class="form-control" value="" id="LineNumber" name="lineNum">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Name</label>
+                <input type="text" class="form-control" value="" id="pinName" name="name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Pin ID</label>
+                <input type="text" class="form-control" value="" id="pinID" name="pinID">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Pitch</label>
+                <input type="text" class="form-control" name="pitchPin" value="" id="pitchPin">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Yaw</label>
+                <input type="text" class="form-control" name="yawPin" value="" id="yawPin">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Node</label>
+                <select class="form-control" name="nodeid" id="nodeid">
+                          <?php foreach($result2 as $item){?>  
+                            <option value="<?php echo $item['id']; ?>" <?php if($item['id'] == $node){echo 'selected';} ?>><?php echo $item['id']; ?></option>
+                            <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Info</label>
+                <input type="text" class="form-control" name="info" value="" id="info">
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" onclick="$('#edit-pin-modal').hide()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" onclick="edit_pin()" id="update-pin" class="btn btn-primary">Update Pin</button>           
+      </div>
+    </div>
+  </div>
+</div>
+

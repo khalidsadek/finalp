@@ -4,19 +4,19 @@ require('Dijkstra.php');
 session_start();
 $pageTitle = 'Main';
 
-//$myfile = fopen("graph.txt", "w");
- $edges=getJsonFormat();
- $g = new Graph();
- foreach($edges as $ed) {
-   $g->addedge($ed['id1'],$ed['id2'],$ed['weight']);
-}
 
-$serialize =serialize($g);
-$_SESSION['graph_arr'] = $serialize;
-//echo $serialized;
+//  $edges=getJsonFormat();
+//  $g = new Graph();
+//  foreach($edges as $ed) {
+//    $g->addedge($ed['id1'],$ed['id2'],$ed['weight']);
+// }
 
+// $serialize =serialize($g);
+// $_SESSION['graph_arr'] = $serialize;
 
-//print_r(unserialize($serialize));
+// print_r($g);
+// print_r($serialize);
+
 include "navbar.php";
 ?>
 

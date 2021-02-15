@@ -11,7 +11,7 @@ $(document).ready(function () {
         async: false,
         success: function (response) {
           // console.log(response);
-          console.log(response);
+          // console.log(response);
           $("#show-list").html(response);
 
         },
