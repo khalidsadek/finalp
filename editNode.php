@@ -108,13 +108,14 @@ include "navbar.php";
   <div class="col-8">
     <div id="panorama2" class="img-responsive"></div>
   </div>
-  <div class="col-4 " style="margin-top:150px">
 
-    <div class="row justify-content-center">
+  <div class="col-4 " style="margin-top:50px">
+
+    <div class="row justify-content-center" style="margin-bottom: 45px;">
       <div class="row justify-content-center">
-        <select class="livesearch SelectToMove" style="width:400px;">
-          <option value="0">Choose Object to move</option>
-
+      <h5>Choose Object to move</h5>
+        <select class="livesearch SelectToMove" style="width:90%;">      
+          <option>...</option>
           <?php foreach ($result as $h){ ?>
                 <option value="<?php echo $h['id2']; ?>"><?php echo $h['id2']; ?></option>
               <?php } ?>
@@ -154,7 +155,7 @@ include "navbar.php";
       <th scope="col">Control</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="hotspots_tbody">
   <?php foreach($result as $item) { ?>
     <tr>
       <th scope="row"><?php echo $item['id1']; ?></th>
@@ -163,7 +164,7 @@ include "navbar.php";
       <td><?php echo $item['yaw']; ?></td>
       <td><?php echo $item['weight']; ?></td>
       <td>
-          <a type="button" href="/finalp/edit-hotspot.php?currentnode=<?php echo $item['id1']?>&nextnode=<?php echo $item['id2'];?>" class="btn btn-info edit">Edit Hotspots</a>
+          <a type="button" href="/finalp/edit-hotspot.php?currentnode=<?php echo $item['id1']?>&nextnode=<?php echo $item['id2'];?>" class="btn btn-info edit"><i class="far fa-edit"></i></a>
           <button data-currentnode="<?php echo $item['id1'];?>" data-nextnode="<?php echo $item['id2'];?>" type="button" class="btn btn-danger deleteHotspot"><i class="fas fa-trash-alt"></i></button>
       </td>
     </tr>
@@ -190,7 +191,7 @@ include "navbar.php";
         <th scope="col">Control</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="pins-tbody">
     <?php foreach($resulPin as $item) { ?>
       <tr>
         <th scope="row"><?php echo $item['id']; ?></th>
@@ -200,8 +201,8 @@ include "navbar.php";
         <td><?php echo $item['yaw']; ?></td>
         <td><?php echo $item['info']; ?></td>
         <td>
-            <!-- <a href="/finalp/editNode.php?node=<?php echo $item['id'];?>" type="button" class="btn btn-info">Edit Node</a> -->
-            <button  type="button" data-id="<?php echo $item['id'];?>" class="btn btn-danger deletePin">Delete Node</button>
+            <!-- <a href="/finalp/editNode.php?node=<?php echo $item['id'];?>" type="button" class="btn btn-info">Edit Pin</a> -->
+            <button  type="button" data-id="<?php echo $item['id'];?>" class="btn btn-danger deletePin"><i class="fas fa-trash-alt"></i></button>
         </td>
       </tr>
       <?php } ?>
@@ -219,6 +220,7 @@ include "footer.php";
 <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="/finalp/js/script.js"></script> -->
 <div id="edit-modal"></div>
 
 <!-- Modal -->
@@ -274,7 +276,217 @@ include "footer.php";
     </div>
   </div>
 </div>
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
 <script>
+
+var hotSpotsIds=new Array();
+
+removeHotspots();
+viewer = pannellum.viewer('panorama2', {
+"type": "equirectangular",
+// "autoRotate": -10,
+"panorama": "/finalp/<?php echo $no['info']?>",
+"hotSpots": gethotspots(<?php echo $no['id']?>) ,
+"autoLoad": true,
+"stopAutoRotate":false,
+"hfov":100});
+/////////////////////////////////////////////////////////
+//////////////////////MovePins////////////////////////////
+///////////////////////////////////////////
+$(document).on('click','#PpitchM',function (e) {
+    e.preventDefault();
+    var PinID = $("#PpitchM").data("id");
+    var lineNum = $("#PpitchM").data("linenum");
+    var curND = '<?php echo $node ?>';
+    var PpitchM = "PpitchM";
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {PinID: PinID,
+                  lineNum:lineNum,
+                  curND:curND,
+                  PpitchM:PpitchM},
+            //async: false,
+            success: function(response){
+              console.log(response);
+              $("#pins-tbody").replaceWith(response);
+              removeHotspots();
+              loadViewr();
+            },
+            });
+});
+
+$(document).on('click','#PpitchP',function (e) {
+    e.preventDefault();
+    var PinID = $("#PpitchP").data("id");
+    var lineNum = $("#PpitchP").data("linenum");
+    var PpitchP = "PpitchP";
+    var curND = '<?php echo $node ?>';
+
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {PinID: PinID,
+                  lineNum:lineNum,
+                  curND:curND,
+                  PpitchP:PpitchP},
+            //async: false,
+            success: function(response){
+              console.log(response);
+              $("#pins-tbody").replaceWith(response);
+              removeHotspots();
+              loadViewr();
+            },
+            });
+});
+
+$(document).on('click','#PyawM',function (e) {
+    e.preventDefault();
+    var PinID = $("#PyawM").data("id");
+    var lineNum = $("#PyawM").data("linenum");
+    var curND = '<?php echo $node ?>';
+    var PyawM = "PyawM";
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {PinID: PinID,
+                  lineNum:lineNum,
+                  curND:curND,
+                  PyawM:PyawM},
+            //async: false,
+            success: function(response){
+              console.log(response);
+              $("#pins-tbody").replaceWith(response);
+              removeHotspots();
+              loadViewr();
+            },
+            });
+});
+
+$(document).on('click','#PyawP',function (e) {
+    e.preventDefault();
+    var PinID = $("#PyawP").data("id");
+    var lineNum = $("#PyawP").data("linenum");
+    var curND = '<?php echo $node ?>';
+    var PyawP = "PyawP";
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {PinID: PinID,
+                  lineNum:lineNum,
+                  curND:curND,
+                  PyawP:PyawP},
+            //async: false,
+            success: function(response){
+              console.log(response);
+              $("#pins-tbody").replaceWith(response);
+              removeHotspots();
+              loadViewr();
+            },
+            });
+});
+
+
+/////////////////////////////////////////////////////////
+//////////////////////MoveHotspots////////////////////////////
+///////////////////////////////////////////
+$(document).on('click','#pitchP',function (e) {
+    e.preventDefault();
+    var pitchP = $("#pitchP").data("pitchp");
+    var cur = '<?php echo $node ?>';
+      // var url = 'index.php';
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {pitchP: pitchP,
+                   cur:cur},
+            async: false,
+            success: function(response){
+              //console.log(response);
+              $("#hotspots_tbody").replaceWith(response);
+             
+            removeHotspots();
+            loadViewr();
+             
+              // $('#div1-wrapper').load(url + ' #panorama2');
+             
+             
+    
+              
+            },
+            });
+
+
+
+
+
+});
+
+
+$(document).on('click','#pitchM',function (e) {
+    e.preventDefault();
+    var pitchM = $("#pitchM").data("pitchm");
+    var cur = '<?php echo $node ?>';
+
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {pitchM: pitchM,
+                   cur:cur},
+            async: false,
+            success: function(response){
+              //console.log(response);
+              $("#hotspots_tbody").replaceWith(response);
+              removeHotspots();
+            loadViewr();
+            },
+            });
+});
+
+
+
+$(document).on('click','#yawP',function (e) {
+    e.preventDefault();
+    var yawP = $("#yawP").data("yawp");
+    var cur = '<?php echo $node ?>';
+
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {yawP: yawP,
+                   cur:cur},
+            async: false,
+            success: function(response){
+              //console.log(response);
+              $("#hotspots_tbody").replaceWith(response);
+              removeHotspots();
+            loadViewr();
+            },
+            });
+});
+
+$(document).on('click','#yawM',function (e) {
+    e.preventDefault();
+    var yawM = $("#yawM").data("yawm");
+    var cur = '<?php echo $node ?>';
+
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {yawM: yawM,
+                   cur:cur},
+            async: false,
+            success: function(response){
+              //console.log(response);
+              $("#hotspots_tbody").replaceWith(response);
+              removeHotspots();
+            loadViewr();
+            },
+            });
+});
+
+
 $(document).on('change','.SelectToMove',function(){
   var target = $(this).val();
   var current = $("#current").val();
@@ -290,13 +502,26 @@ $(document).on('change','.SelectToMove',function(){
             },
       success: function(response){
         $("#editspot").replaceWith(response);
+        removeHotspots();
+            loadViewr();
       }
     })
+  } else{
+    $.ajax({
+      type: "GET",
+      url: "/finalp/handleRequests.php",
+      data: {pin:target,
+            current:current},
+      //dataType: "dataType",
+      success: function (response) {
+        $("#editspot").replaceWith(response);
+      }
+    });
   }
 })
-$(".deleteHotspot").click(function(){
-  var id1 = $(this).data('currentnode');
-  var id2 = $(this).data('nextnode');
+$(document).on('click','.deleteHotspot',function(){
+  var id1 = $('.deleteHotspot').data('currentnode');
+  var id2 = $('.deleteHotspot').data('nextnode');
   console.log(id1);
   console.log(id2);
   var x = confirm("Are you sure?");
@@ -305,17 +530,28 @@ $(".deleteHotspot").click(function(){
     //console.log("/finalp/delete-node.php?node="+id);
   }
 })
-//console.log(<?php echo $no['info']?>);
-viewer = pannellum.viewer('panorama2', {
-"type": "equirectangular",
-// "autoRotate": -10,
-"panorama": "/finalp/<?php echo $no['info']?>",
-"hotSpots": gethotspots(<?php echo $no['id']?>) ,
-"autoLoad": true,
-"stopAutoRotate":false,
-"hfov":150
+//console.log(<php echo $no['info']?>);
 
-});
+
+
+function loadViewr()
+{
+
+  
+
+  viewer = pannellum.viewer('panorama2', {
+              "type": "equirectangular",
+              // "autoRotate": -10,
+              "panorama": "/finalp/<?php echo $no['info']?>",
+              "hotSpots": gethotspots(<?php echo $no['id']?>) ,
+              "autoLoad": true,
+              "stopAutoRotate":false,
+              "hfov":100 });
+}
+
+
+
+
 
 function gethotspots(p1)
 {
@@ -336,6 +572,7 @@ var newValue34="custom-hotspot-green-grave";
 var newUs4="text";
 var newValue4="come here";
 var newvalue41="back";
+
 
     var strings=new Array();
     $.ajax({
@@ -386,12 +623,26 @@ var newvalue41="back";
 
 
           strings.push(obj);
+          hotSpotsIds.push(obj['id']);
 
         }
 
         return strings;
 }
 
+function removeHotspots()
+{
+  for(var i=0;i<hotSpotsIds.length;i++)
+  {
+    viewer.removeHotSpot(hotSpotsIds[i]);
+  }
+  hotSpotsIds=new Array();
+}
+function arrayRemove(arr, value) {
+  var index = arr.indexOf(value);
+if (index !== -1) arr.splice(index, 1);
+
+}
 
 function hotspot(hotSpotDiv, args) {
 
@@ -405,7 +656,7 @@ function hotspot(hotSpotDiv, args) {
          span.style.width = span.scrollWidth - 20 + 'px';
          span.style.marginLeft = -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2 + 'px';
          span.style.marginTop = -span.scrollHeight - 12 + 'px';
-     }
+          }
 
 
 </script>
@@ -451,10 +702,10 @@ function hotspot(hotSpotDiv, args) {
                 <label for="inputEmail4">Node</label>
                 <input type="text" class="form-control" name="nodeID" value="<?php echo $node;?>" disabled>
                 <!-- <select class="form-control" name="nodeID">
-                  <?php
+                  <php
                   foreach ($result2 as $nodes) { ?>
-                    <option value="<?php echo $nodes['id']; ?>"><?php echo $nodes['id']; ?></option>
-                <?php  }?>
+                    <option value="<php echo $nodes['id']; ?>"><php echo $nodes['id']; ?></option>
+                <php  }?>
 
                 </select> -->
               </div>
@@ -476,7 +727,8 @@ function hotspot(hotSpotDiv, args) {
 </div>
 <script>
 
-$(".deletePin").click(function(){
+
+$(document).on('click','.deletePin',function(){
   var id = $(this).data('id');
   var x = confirm("Are you sure?");
   if(x == true){

@@ -139,47 +139,5 @@ return $return_arr;
 }
 
 
-// function getEdges()
-// {
-//
-//   $conn=connect();
-//   $sql = "SELECT `id1`, `id2`,`weight` FROM `hotspot` ORDER BY `hotspot`.`id1` ASC";
-//
-//  $result= $conn -> query($sql);
-//
-//  if ($result->num_rows>0) {
-//
-//    while ($row = $result->fetch_assoc()) {
-//      $id1=$row["id1"];
-//      $id2=$row["id2"];
-//      $weight=$row["weight"];
-//
-//      $edges.='{"id1":'.$id1.',"id2":'.$id2.',"weight":"'.$weight.'"}*';
-//    }
-//  }
-// return $edges;
-//
-// }
 
 
-// $conn=connect();
-// $sql = "SELECT `id1`, `id2`,`weight` FROM `hotspot` ORDER BY `hotspot`.`id1` ASC";
-//
-// $result = $conn->query($sql);
-//
-// echo $result->num_rows;
-// if ($result->num_rows > 0) {
-// // output data of each drow
-// while($row =mysql_fetch_array($result, MYSQL_ASSOC)) {
-//  $id1=$row["id1"];
-//  $id2=$row["id2"];
-//  $weight=$row["weight"];
-//
-//  $edges.='{"id1":'.$id1.',"id2":'.$id2.',"weight":"'.$weight.'}*';
-//  // echo $row["info"];
-// }
-// }
-//
-// // echo $spots;
-// return $edges;
-//

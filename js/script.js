@@ -75,16 +75,15 @@ var path = null;
        });
 
 
-
   removeHotspots();
     viewer = pannellum.viewer('panorama', {
    "type": "equirectangular",
-   "autoRotate": -10,
+   "autoRotate": -6,
    "panorama": "/finalp/"+path,
    "hotSpots": gethotspots(args) ,
    "autoLoad": true,
    "stopAutoRotate":false,
-   "hfov":150
+   "hfov":100
 
 });
 

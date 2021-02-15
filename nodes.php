@@ -21,13 +21,13 @@ try {
 ################################################
 include "navbar.php";
 ?>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 <div class="container">
 
   <div style="width:520px;margin:0px auto;margin-top:30px;">
     <h5>select line name :</h5>
     <select class="livesearch selectLine" style="width:400px;">
-      <option value="0">Choose line</option>
+      <option value="">Choose line</option>
       <?php foreach ($resultLineNames as $item): ?>
             <option value="<?php echo $item['line_name'] ?>"><?php echo $item['line_name'] ?></option>
           <?php endforeach; ?>
@@ -48,17 +48,13 @@ include "navbar.php";
   </thead>
   <tbody id="nodes-table">
   <?php foreach($result as $item) { ?>
-    <!-- ///iffff
-      $(".livesearch").chosen()!=$item['line_name']
-      return
-////////////////////////////// -->
     <tr>
       <th scope="row"><?php echo $item['id']; ?></th>
       <td><?php echo $item['line_name']; ?></td>
       <td><?php echo $item['info']; ?></td>
       <td>
-          <a href="/finalp/editNode.php?node=<?php echo $item['id'];?>" type="button" class="btn btn-info">Edit Node</a>
-          <button  type="button" data-id="<?php echo $item['id'];?>" class="btn btn-danger deleteNode">Delete Node</button>
+          <a href="/finalp/editNode.php?node=<?php echo $item['id'];?>" type="button" class="btn btn-info"><i class="far fa-edit"></i></a>
+          <button  type="button" data-id="<?php echo $item['id'];?>" class="btn btn-danger deleteNode"><i class="fas fa-trash-alt"></i></button>
       </td>
     </tr>
     <?php } ?>
@@ -83,16 +79,20 @@ $(document).on('click','.deleteNode',function(){
 
 $(document).on('change','.selectLine',function(){
   var line = $(this).val();
-  $.ajax({
-          url: 'handleRequests.php',
-          type: 'GET',
-          data: {line: line},
-          async: false,
-          success: function(response){
-            $('#nodes-table').replaceWith(response);
-            console.log(response);
-          },
-          }
-      );
+  function isNumeric(target) {
+    return !isNaN(target) && !isNaN(parseFloat(target));
+  }
+  if(isNumeric(line))
+    $.ajax({
+            url: 'handleRequests.php',
+            type: 'GET',
+            data: {line: line},
+            async: false,
+            success: function(response){
+              $('#nodes-table').replaceWith(response);
+              console.log(response);
+            },
+            }
+        );
 })
 </script>
