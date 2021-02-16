@@ -90,7 +90,11 @@ var path = null;
 
 if(args==to)
    {
+
+    // var name="";
+    // var to="";
      setTimeout(function() { alert("you have arrived to your distination"); }, 220);
+  
    }
 }
 
@@ -171,7 +175,7 @@ var newvalue41="back";
               obj[newUs3]=newValue3;
           }
 
-          obj[newUs4]=newValue4;
+          // obj[newUs4]=newValue4;
         // }
         }
           else {
@@ -274,7 +278,7 @@ console.log(id);
 function getNodeByName()
 {
 
-   name = document.getElementById('search').value;
+     name = document.getElementById('search').value;
 
   $.ajax({
     url: 'handleRequests.php',
