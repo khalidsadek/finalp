@@ -1,6 +1,9 @@
 $(document).ready(function () {
   // Send Search Text to the server
+  
   $("#search").keyup(function () {
+    
+
     let searchText = $(this).val();
     if (searchText != "") {
       console.log(searchText);
@@ -10,9 +13,8 @@ $(document).ready(function () {
         data: {query: searchText},
         async: false,
         success: function (response) {
-          // console.log(response);
-          // console.log(response);
-          $("#show-list").html(response);
+
+          //$("#show-list").html(response);
 
         },
       });

@@ -757,7 +757,7 @@ $(document).on('click','.editHotspot',function(){
   $("#pitch").val(data[1]);
   $("#yaw").val(data[2]);
   $("#weight").val(data[3]);
-  
+  $("#actual-NextHotSpot").val(data[0])
 })
 $("#update-hotspot").click(function(){
   //
@@ -819,7 +819,7 @@ function edit_htspt(){
                         <label class="col-form-label">Weight</label>
                         <input type="text" class="form-control" name="weight" value="" id="weight">
                     </div>
-
+                    <input hidden id="actual-NextHotSpot" name="actuaNextHotSpot" value="">       
         </form>
     </div>
 </div>
@@ -851,12 +851,15 @@ $(document).on('click','.editPinss',function(){
   }).get();
   console.log(data)
 
-   $("#pinID").val(data[0]);
+  $("#pinID").val(data[0]);
   $("#LineNumber").val(data[1]);
   $("#pinName").val(data[2]);
   $("#pitchPin").val(data[3]);
   $("#yawPin").val(data[4]);
-  $("#info").val(data[5]); 
+  $("#info").val(data[5]);
+
+  var x = document.getElementById("actual-pinID").value = data[0];
+  $("#actual-LineNumber").val(data[1]); 
   
 })
 
@@ -925,7 +928,8 @@ function edit_pin(){
                 <input type="text" class="form-control" name="info" value="" id="info">
               </div>
             </div>
-            
+            <input hidden id="actual-pinID" name="acutalPinID" value="">
+            <input hidden id="actual-LineNumber" name="actualLineNum" value="">
           </form>
         </div>
       </div>

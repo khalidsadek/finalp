@@ -21,7 +21,7 @@ function printPins($curND){
   echo      '<td>'.$item['yaw'].'</td>';
   echo      '<td>'.$item['info'].'</td>';
   echo      '<td>';
-  //echo          '<a href="/finalp/editNode.php?node='.$item['id'].'" type="button" class="btn btn-info">Edit Pin</a>';
+  echo          '<button type="button"  class="btn btn-info editPinss"><i class="far fa-edit"></i></button> ';
   echo          '<button  type="button" data-id="'.$item['id'].'" class="btn btn-danger deletePin"><i class="fas fa-trash-alt"></button>';
   echo      '</td>';
   echo    '</tr>';
@@ -45,7 +45,7 @@ function printHotspots($node){//FOR
     echo    '<td>'.$item['yaw'].'</td>';
     echo    '<td>'.$item['weight'].'</td>';
     echo    '<td>';
-    echo      '<a type="button" href="/finalp/edit-hotspot.php?currentnode='.$item['id1'].'&nextnode='.$item['id2'].'" class="btn btn-info edit"><i class="far fa-edit"></i></a>';
+    echo      '<a type="button" href="/finalp/edit-hotspot.php?currentnode='.$item['id1'].'&nextnode='.$item['id2'].'" class="btn btn-info edit"><i class="far fa-edit"></i></a> ';
     echo      '<button data-currentnode="'.$item['id1'].'" data-nextnode="'.$item['id2'].'" type="button" class="btn btn-danger deleteHotspot"><i class="fas fa-trash-alt"></i></button>';
     echo    '</td>';
     echo '</tr>';
