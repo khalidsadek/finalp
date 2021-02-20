@@ -1,4 +1,6 @@
-
+function refresh_page(){
+  location.reload();
+}
 // $(function(){
 
 
@@ -32,13 +34,13 @@ function loading()
 
 
 function  openModal(event,args){
-console.log("==================================11====");
+//console.log("==================================11====");
 from=args;
 
-console.log("args: ");
-console.log(args);
-console.log("}to : ");
-console.log(to);
+//console.log("args: ");
+//console.log(args);
+//console.log("}to : ");
+//console.log(to);
 
  // featureHotSpots.shift();
 // if(args==to)
@@ -46,15 +48,15 @@ console.log(to);
 //      alert("you have arrived to your distination");
 //    }
    // else {
-console.log("newSearch :: ");
-console.log(newSearch);
+//console.log("newSearch :: ");
+//console.log(newSearch);
 // if(newSearch==1)
 // {
 //   newSearch=0;
 if(checkType()==0)
 {
        manageHotSpots(args);
-       console.log("in path");
+       //console.log("in path");
  }
 
        id=args;
@@ -69,7 +71,7 @@ var path = null;
          success: function (response) {
             path = response;
 
-          console.log(path);
+          //console.log(path);
 
          },
        });
@@ -116,8 +118,8 @@ if (index !== -1) arr.splice(index, 1);
 
 function gethotspots(p1)
 {
-  console.log("featureHotSpots :::");
-  console.log(featureHotSpots);
+  //console.log("featureHotSpots :::");
+  //console.log(featureHotSpots);
 
 hotspots=new Array();
 var newUs ="createTooltipFunc" ;
@@ -149,7 +151,7 @@ var newvalue41="back";
             }
         );
 
-        console.log(hotspots);
+        //console.log(hotspots);
         var jsons=hotspots.split('*');
         jsons=jsons.filter(function (el) {
   return el != "";
@@ -199,7 +201,7 @@ var newvalue41="back";
           strings.push(obj);
           hotSpotsIds.push(obj['id']);
         }
-        console.log(strings);
+        //console.log(strings);
         return strings;
 }
 
@@ -214,8 +216,8 @@ if (index==0) {
   featureHotSpots.shift();
     }
     else {
-      console.log("manage From :: ");
-      console.log(args);
+      //console.log("manage From :: ");
+      //console.log(args);
       if(newSearch==0)
       {
         featureHotSpots.unshift(currentNode);
@@ -236,8 +238,8 @@ if (index==0) {
 
 function getPath(Destination) {
 
-console.log("id ::");
-console.log(id);
+//console.log("id ::");
+//console.log(id);
   $.ajax({
     url: 'getPath.php',
     type: 'POST',
@@ -245,35 +247,41 @@ console.log(id);
     },
     async: false,
     success: function (response) {
-      console.log(response);
+      //console.log(response);
 
   // var arr=response;
   // arr=response;
- var  arr=response.substr(8);
-  featureHotSpots=arr.split("\n");
-  featureHotSpots.pop();
-    featureHotSpots.pop();
+      console.log(response)
+      var arr=response.substr(8);
+      featureHotSpots=arr.split("\n");
+      featureHotSpots.pop();
+      featureHotSpots.pop();
 
-    for (var i = 0; i < featureHotSpots.length; i++) {
-    featureHotSpots[i]=parseInt(featureHotSpots[i].substring(featureHotSpots[i].indexOf(">")+1));
-  }
-  currentNode=featureHotSpots[0];/////////////////////////////////=============================================
-  // featureHotSpots.shift();
-  to=featureHotSpots[featureHotSpots.length-1];
-  console.log(to);
+      for (var i = 0; i < featureHotSpots.length; i++) {
+        featureHotSpots[i]=parseInt(featureHotSpots[i].substring(featureHotSpots[i].indexOf(">")+1));
+      }
+      currentNode=featureHotSpots[0];/////////////////////////////////=============================================
+      // featureHotSpots.shift();
+      to=featureHotSpots[featureHotSpots.length-1];
+  //console.log(to);
 
-    // console.log(featureHotSpots);
-
+    console.log(featureHotSpots);
     },
   });
   featureHotSpots.shift();
   // featureHotSpots.shift();
  // removeHotspots();
 
- openModal(null,currentNode);
+  if(featureHotSpots.length >= 1){
+    openModal(null,currentNode);
+  } else{
+    openModal(null,1);
+    alert("Record Not Found")
+    /*setTimeout(refresh_page, 500); */
+
 
 }
-
+}
 
 function getNodeByName()
 {
@@ -285,6 +293,11 @@ function getNodeByName()
     type: 'POST',
     data: {name: name},
     async: false,
+    error: function(xhr, status, error) {
+      console.log(xhr)
+      console.log(status)
+      console.log(error)
+    },
     success: function (response) {
       // console.log(response);
 
@@ -318,10 +331,10 @@ function hotspot(hotSpotDiv, args) {
          // if(previuseHotSpot.length==0 && featureHotSpots.length==0)
          if(featureHotSpots.length==0)
          {
-          console.log("checjType = 1");
+          //console.log("checjType = 1");
            return 1;
 }
-  console.log("checjType = 0");
+  //console.log("checjType = 0");
            return 0;
 
   }

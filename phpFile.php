@@ -49,6 +49,7 @@ function searchName($name)
 
   function getNode($name)
   {
+    try{
       $conn=connect();
       $sql = "SELECT `nodeID` FROM pin WHERE name='$name'";
       $result = $conn->query($sql);
@@ -56,10 +57,13 @@ function searchName($name)
         $row= $result->fetch_assoc();
 
        return $row['nodeID'];
+      } catch(Exception $e){
+        echo $e->getMessage();
+      }
 
   }
 
-  function getNodePath($nodeId1)
+  function getNodePath($nodeId1)//image path
   {
       $conn=connect();
       $sql = "SELECT `info` FROM node WHERE id='$nodeId1'";

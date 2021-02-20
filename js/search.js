@@ -12,6 +12,9 @@ $(document).ready(function () {
         type: 'POST',
         data: {query: searchText},
         async: false,
+        error: function(xhr, status, error) {
+          console.log(error)
+        },
         success: function (response) {
 
           //$("#show-list").html(response);

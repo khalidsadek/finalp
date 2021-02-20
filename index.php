@@ -30,7 +30,7 @@ include "navbar.php";
     height: 300%;
     overflow-y: scroll;
   }
-</style> -->
+</style> 
 <!-- <div class="container" style="margin-top:100px">
 
         <form style="margin-bottom:100px">
@@ -95,6 +95,11 @@ include "navbar.php";
         type: 'POST',
         data: {query: searchText},
         async: false,
+        error: function(xhr, status, error) {
+          console.log(xhr)
+          console.log(status)
+          console.log(error)
+        },
         success: function (response) {
           var myElement = document.getElementById("show-list");
           $(myElement).removeClass('d-none');
