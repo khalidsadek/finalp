@@ -25,7 +25,7 @@ include "navbar.php";
 <div class="container">
 
   <div style="width:520px;margin:0px auto;margin-top:30px;">
-    <h5>select line name :</h5>
+    <h5>select line Number :</h5>
     <select class="livesearch selectLine" style="width:400px;">
       <option value="">Choose line</option>
       <?php foreach ($resultLineNames as $item): ?>
@@ -41,7 +41,7 @@ include "navbar.php";
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Line Name</th>
+      <th scope="col">Line Number</th>
       <th scope="col">Image Path</th>
       <th scope="col">Control</th>
     </tr>

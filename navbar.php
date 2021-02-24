@@ -22,9 +22,9 @@
             <li class="nav-item <?php if($pageTitle == 'nodes'){echo 'active';}?>">
                 <a class="nav-link" href="/finalp/nodes.php">Nodes</a>
             </li>
-            <li class="nav-item <?php if($pageTitle == 'pins'){echo 'active';}?>"">
-                <a class="nav-link" href="/finalp/pins.php">Pins</a>
-            </li>
+<!--            <li class="nav-item --><?php //if($pageTitle == 'pins'){echo 'active';}?><!--"">-->
+<!--                <a class="nav-link" href="/finalp/pins.php">Pins</a>-->
+<!--            </li>-->
         </ul>
     </div>
 </div>

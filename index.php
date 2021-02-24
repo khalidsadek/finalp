@@ -5,18 +5,6 @@ session_start();
 $pageTitle = 'Main';
 
 
-//  $edges=getJsonFormat();
-//  $g = new Graph();
-//  foreach($edges as $ed) {
-//    $g->addedge($ed['id1'],$ed['id2'],$ed['weight']);
-// }
-
-// $serialize =serialize($g);
-// $_SESSION['graph_arr'] = $serialize;
-
-// print_r($g);
-// print_r($serialize);
-
 include "navbar.php";
 ?>
 
@@ -58,7 +46,7 @@ include "navbar.php";
           <div class="input-group">
             <input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 border-info" placeholder="Search..." autocomplete="off" required>
             <div class="input-group-append">
-              <input name="submit"  value="Search" class="btn btn-info btn-lg rounded-0;" onclick="return getNodeByName()">
+              <input type="button" id="search-submit" name="submit"  value="Search" class="btn btn-info btn-lg rounded-0;" onclick="return getNodeByName()">
             </div>
           </div>
         </form>
@@ -73,10 +61,27 @@ include "navbar.php";
 
 </div>
 
- <div class="container justify-content-center" style="z-index: 1;margin-top:100px;margin-bottom:100px">
- <div id="panorama" class="img-responsive"></div>
-</div> 
+<div class="row" style="height:700px;z-index: 1;margin-top:100px;margin-bottom:100px">
+    <div class="col-2" style="">
+        <div class="card d-none" style="width: 18rem;" id="pin-card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<!--                <a href="#" class="card-link">Card link</a>-->
+<!--                <a href="#" class="card-link">Another link</a>-->
+            </div>
+        </div>
+    </div>
 
+    <div class="col-8" >
+        <div id="panorama" class="img-responsive"></div>
+    </div>
+    <div class="col-2">
+
+    </div>
+
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
@@ -85,6 +90,22 @@ include "navbar.php";
 
 <!--<input type="text" name="search" id="search" class="form-control form-control-lg rounded-0 border-info" placeholder="Search..." autocomplete="off" required>-->
 <script>
+    $("#search-submit").click(function(){
+        var data = $("#search").val();
+        //console.log(data);
+        $.ajax({
+            url:"handleRequests.php",
+            type:'GET',
+            data: {PinInfo:data},
+            success: function(response){
+                //$("pin-card").removeClass('d-none')
+                $("#pin-card").replaceWith(response)
+                console.log(response);
+                $("#show-list").addClass('d-none');
+            }
+
+        })
+    })
   $("#search").keyup(function () {
     
     var searchText = $(this).val();

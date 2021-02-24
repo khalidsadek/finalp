@@ -6,6 +6,14 @@ session_start();
 ###################################################################
 #############################PINS##################################
 ###################################################################
+////////////////////////GET PIN////////////////////////////////////
+try {
+    $stmtPin = $conn->prepare("SELECT * FROM pin WHERE nodeID=$node ORDER BY id ASC");
+    $stmtPin->execute();
+    $resulPin = $stmtPin->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
 ////////////////////////INSERT PIN//////////////////////////
 try{
 if(isset($_POST['submit2'])){
@@ -16,22 +24,27 @@ if(isset($_POST['submit2'])){
   $yaw = $_POST['yaw'];
   $info = $_POST['info'];
   $nodeID = $node;//$_POST['nodeID'];
-
-  $insertPin = "INSERT INTO pin (id, name, lineNum, pitch, yaw, info, nodeID) VALUES (?,?,?,?,?,?,?)";
-  $conn->prepare($insertPin)->execute([$id, $name, $lineNum, $pitch, $yaw, $info, $nodeID]);
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+  $isExist = 0;
+    foreach($resulPin as $pin){
+        if($pin['id'] == $id && $pin['lineNum'] == $lineNum && $pin['name']==$name )
+            $isExist = 1;
+    }
+    if($isExist == 0){
+        if(is_numeric($id) && is_numeric($lineNum) && $id != null && $lineNum != null){
+        $insertPin = "INSERT INTO pin (id, name, lineNum, pitch, yaw, info, nodeID) VALUES (?,?,?,?,?,?,?)";
+        $conn->prepare($insertPin)->execute([$id, $name, $lineNum, $pitch, $yaw, $info, $nodeID]);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }else{
+            echo "<script>alert('ID and Line Number should be numeric')</script>";
+        }
+    } else{
+        echo "<script>alert('Pin ID,Line Number or Name ALREADY EXIST')</script>";
+    }
 }
 } catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
-////////////////////////GET PIN////////////////////////////////////
-try {
-  $stmtPin = $conn->prepare("SELECT * FROM pin WHERE nodeID=$node ORDER BY id ASC");
-  $stmtPin->execute();
-  $resulPin = $stmtPin->fetchAll(PDO::FETCH_ASSOC);
-} catch(PDOException $e) {
-  echo "Error: " . $e->getMessage();
-}
+
 ###################################################################
 
 
@@ -76,7 +89,13 @@ try {
       $pitch = $_POST['pitch'];
       $yaw = $_POST['yaw'];
       $weight = $_POST['weight'];
-
+      $isSpotExist = 0;
+      foreach($result as $spot){
+        if($spot['id2'] == $id2) {
+            $isSpotExist = 1;
+        }
+      }
+      if($isSpotExist == 0){
       $sql = "INSERT INTO hotspot (id1, id2, pitch, yaw, weight)
       VALUES ('$node', '$id2', '$pitch', '$yaw', '$weight')";
       $conn->exec($sql);
@@ -88,6 +107,9 @@ try {
       $stmt3 = $conn->prepare($sql2);
       $stmt3->execute();
       header("Location: /finalp/editNode.php?node=$node");
+      } else{
+          echo "<script>alert('HotSpot ALREADY EXIST')</script>";
+      }
     }
   } catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
@@ -115,7 +137,7 @@ include "navbar.php";
       <div class="row justify-content-center">
       <h5>Choose Object to move</h5>
         <select class="livesearch SelectToMove" style="width:90%;">      
-          <option>...</option>
+          <option value="0">...</option>
           <?php foreach ($result as $h){ ?>
                 <option value="<?php echo $h['id2']; ?>"><?php echo $h['id2']; ?></option>
               <?php } ?>
@@ -128,14 +150,14 @@ include "navbar.php";
     </div>
     <div id="editspot">
     <div class="row justify-content-center">
-      <button id="pitchP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-up"></i></button>
+      <button disabled id="pitchP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-up"></i></button>
     </div>
     <div class="row justify-content-center">
-      <button id="yawM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-left"></i></button>
-      <button id="yawP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;margin-left:30px"><i class="fas fa-arrow-right"></i></button>
+      <button disabled id="yawM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-left"></i></button>
+      <button disabled id="yawP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;margin-left:30px"><i class="fas fa-arrow-right"></i></button>
     </div>
     <div class="row justify-content-center">
-      <button id="pitchM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-down"></i></button>
+      <button disabled id="pitchM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-down"></i></button>
     </div>
   </div>
   </div>
@@ -209,7 +231,7 @@ include "navbar.php";
     </tbody>
   </table>
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createPin">
-    Create Pin
+    Add Grave
   </button>
   <?php include 'pins.php' ?>
 </div>
@@ -492,19 +514,23 @@ $(document).on('change','.SelectToMove',function(){
   function isNumeric(target) {
      return !isNaN(target) && !isNaN(parseFloat(target));
   }
+  if(target==0){
+    $("#editSpot").addClass("d-none");
+  }
   if(isNumeric(target)){
-    $.ajax({
-      url:'/finalp/handleRequests.php',
-      type: 'GET',
-      data: {spot:target,
-            current:current
-            },
-      success: function(response){
-        $("#editspot").replaceWith(response);
-        removeHotspots();
-            loadViewr();
-      }
-    })
+      $.ajax({
+        url:'/finalp/handleRequests.php',
+        type: 'GET',
+        data: {spot:target,
+              current:current
+              },
+        success: function(response){
+          $("#editspot").replaceWith(response);
+          removeHotspots();
+              loadViewr();
+        }
+      })
+    
   } else{
     $.ajax({
       type: "GET",
@@ -714,7 +740,7 @@ function hotspot(hotSpotDiv, args) {
               </div>
             </div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="submit2" class="btn btn-primary">Add Pin</button>
+            <button type="submit" name="submit2" class="btn btn-primary">Add Grave</button>
           </form>
         </div>
       </div>
@@ -872,8 +898,14 @@ function edit_pin(){
     url: "edit-pin.php",
     data: data,
     success: function (response) {
-      console.log(response)
-      location.reload()
+        if(response == 10){
+            alert("ID or Line number should be numeric")
+            console.log(response)
+        }else{
+            location.reload()
+            console.log(response+"A7A")
+        }
+
     }
   });
 }
@@ -935,7 +967,7 @@ function edit_pin(){
       </div>
       <div class="modal-footer">
           <button type="button" onclick="$('#edit-pin-modal').hide()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" onclick="edit_pin()" id="update-pin" class="btn btn-primary">Update Pin</button>           
+          <button type="button" onclick="edit_pin()" id="update-pin" class="btn btn-primary">Update Grave</button>           
       </div>
     </div>
   </div>

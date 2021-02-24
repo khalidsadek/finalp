@@ -7,7 +7,6 @@ session_start();
 
         $file = $_FILES['file'];
         $fileName = $_FILES['file']['name'];
-        //$fileName = $_FILES['file'] . $_POST['id'];
         $fileTmpName = $_FILES['file']['tmp_name'];
         $fileSize = $_FILES['file']['size'];
         $fileError = $_FILES['file']['error'];
@@ -20,7 +19,7 @@ session_start();
 
         //if (in_array($fileActualExt, $allowed)) {
             if ($fileError === 0) {
-                if ($fileSize < 1000000 ) {//500000kb=500mb   my file should be less than 1000000
+                if ($fileSize < 100000 ) {//500000kb=500mb   my file should be less than 1000000
                     //$fileNameNew = uniqid('', ture).".".$fileActualExt;//getting unique id for the image in microseconds to prevent overriding on existed image
                     $fileN= $_POST['id'].".".$fileActualExt;
                     $fileDestination = 'uploads/'.$fileN;//USING ACTUAL NAME
@@ -49,9 +48,13 @@ session_start();
             $name_error = "Sorry... ID already exist";
         }
         else{
+            if(is_numeric($id) && is_numeric($linename) && $id != null && $linename != null && $fileName != null){
             $sql = "INSERT INTO node (id,line_name, info) VALUES ('$id','$linename','$info')";
             $conn->exec($sql);
             header("Location: /finalp/nodes.php");
+            }else{
+                echo "<script>alert('Check your inputs again')</script>";
+            }
         }
 
 
@@ -76,7 +79,7 @@ session_start();
             if ($fileError === 0) {
                 if ($fileSize < 1000000 ) {//500000kb=500mb   my file should be less than 1000000
                     //$fileNameNew = uniqid('', ture).".".$fileActualExt;//getting unique id for the image in microseconds to prevent overriding on existed image
-                    $fileN= $fileName;//.".".$fileActualExt;
+                    $fileN= $_POST['id'].".".$fileActualExt;//.".".$fileActualExt;
                     $fileDestination = 'uploads/'.$fileN;//USING ACTUAL NAME
                     // $fileDestination = 'uploads/'.$fileNameNew;//USING MICROSECONDS NAME
                     echo "befoooooooreeeee moveeeeeeeeeee addNideee,,";
@@ -96,10 +99,15 @@ session_start();
         $id = $_POST['id'];
         $info = $fileDestination;
 
+        if(is_numeric($id) && is_numeric($linename) && $id != null && $linename != null && $fileName != null){
+
         $sql2 = "UPDATE node SET id=?, line_name=?, info=? WHERE id=?";
         $conn->prepare($sql2)->execute([$id, $linename, $fileDestination, $id]);
         header("Location: /finalp/nodes.php");
 
+        }else{
+            echo "<script>alert('ID should be numeric')</script>";
+        }
     }
 
 include "navbar.php";
@@ -117,27 +125,27 @@ include "navbar.php";
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">NODE ID</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" name="id" value="<?php if(isset($_SESSION["id"])){echo $_SESSION["id"];} ?>">
+                                <input required class="form-control" type="text" name="id" value="<?php if(isset($_SESSION["id"])){echo $_SESSION["id"];} ?>">
                                 <small style="color:red">
                                     <?php if(isset($name_error)){echo $name_error;}?>
                                 </small>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Line Name</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Line Number</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" name="linename">
+                                <input required class="form-control" type="text" name="linename">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Info</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Node Image</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="file" name="file">
+                                <input required class="form-control" type="file" name="file">
                             </div>
                         </div>
                             <label class="col-lg-3 col-form-label form-control-label"></label>
 <!--                            <div class="col-lg-9">-->
-                                <?php if(isset($_SESSION["id"])){
+                                <?php if(isset($_SESSION["id"]) && is_numeric($_SESSION["id"])){
                                     echo '<button type="submit" name="submit2" class="btn btn-primary btn-block">Override</button>';
                                     echo '<a href="/finalp/addNode.php" type="button" class="btn btn-danger btn-block">Return back</a>';
                                     session_unset();

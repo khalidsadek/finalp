@@ -338,3 +338,18 @@ if(isset($_GET['PyawP'])){
 
 }
 
+if(isset($_GET['PinInfo'])){
+    $conne = connect();
+    $PinInfo = $_GET['PinInfo'];
+    $Query = "SELECT * FROM pin WHERE name='$PinInfo'";
+    $resultInfo = $conne->query($Query) or die($conne->error);
+    $row = $resultInfo->fetch_assoc();
+    //print_r($row);
+    echo '<div class="card" style="width: 18rem;" id="pin-card">';
+    echo        '<div class="card-body">';
+    echo            '<h5 class="card-title">'.$row['name'].'</h5>';
+    echo            '<h6 class="card-subtitle mb-2 text-muted">Node Number: '.$row['nodeID'].'<br>Line Number: '.$row['lineNum'].'</h6>';
+    echo            '<p class="card-text" style="">Year Of Death: '.$row['info'].'</p>';
+    echo        '</div>';
+    echo '</div>';
+}

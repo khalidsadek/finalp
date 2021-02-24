@@ -16,6 +16,8 @@ try {
     $conn->exec($sql);
     $sql2 = "DELETE FROM hotspot WHERE id1=$node OR id2=$node";
     $conn->exec($sql2);
+    $sql3 = "DELETE FROM pin WHERE nodeID=$node";
+    $conn->exec($sql3);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 } catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
