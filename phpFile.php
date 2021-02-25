@@ -21,7 +21,7 @@ return $conn;
 function searchName($name)
 {
    $conn=connect();
-   $inpText = $name;
+    $name = str_replace("'", "\'", $name);
    $sql = "SELECT * FROM `pin` WHERE `name` LIKE '%$name%'";
 
     $result= $conn->query($sql);
@@ -50,7 +50,7 @@ function searchName($name)
 
   function getNode($name)
   {
-
+    $name = str_replace("'", "\'", $name);
     try{
       $conn=connect();
       $sql = "SELECT `nodeID` FROM pin WHERE name='$name'";
@@ -110,7 +110,8 @@ while($row1 = $result1->fetch_assoc()) {
   $id=$row1["id"];
   $line=$row1["lineNum"];
   $name=$row1["name"];
-  $name = str_replace('"', '', $name);
+  $name = str_replace('"', '\'\'', $name);
+  // $name = str_replace("'", "\'", $name);
   $pitch=$row1["pitch"];
   $yaw=$row1["yaw"];
   // $spots.='{"id":'.$id.',"pitch":'.$pitch.',"yaw":'.$yaw.',"clickHandlerArgs":'.$id.'}*';

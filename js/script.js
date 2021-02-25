@@ -7,6 +7,7 @@ function refresh_page(){
 var id;
 var to;
 // var from;
+var strings;
 var newSearch;
 var viewer;
 var name;
@@ -31,6 +32,7 @@ function loading()
      //
      // openModal(null,1);
 }
+
 
 
 function  openModal(event,args){
@@ -76,7 +78,7 @@ var path = null;
          },
        });
 
-
+  
   removeHotspots();
     viewer = pannellum.viewer('panorama', {
    "type": "equirectangular",
@@ -85,8 +87,9 @@ var path = null;
    "hotSpots": gethotspots(args) ,
    "autoLoad": true,
    "stopAutoRotate":false,
-
-   "hfov":100
+    "yaw":getYawForNextNodeInPath(),
+    //"yaw":0,
+    "hfov":100
 
 });
 
@@ -101,7 +104,27 @@ if(args==to)
    }
 }
 
+function getYawForNextNodeInPath()
+{
 
+  
+  if(featureHotSpots.length > 0){
+    for(x in strings){
+      if(featureHotSpots[0]==strings[x]['id'])
+        return strings[x]['yaw']
+      //  console.log(strings[x]['yaw'])
+    }
+  }else if(featureHotSpots.length==0)
+          {
+            for(x in strings){
+              if(name==strings[x]['name'])
+                return strings[x]['yaw']
+              //  console.log(strings[x]['yaw'])
+            }
+          }
+
+  return 0;
+}
 function removeHotspots()
 {
   for(var i=0;i<hotSpotsIds.length;i++)
@@ -120,7 +143,7 @@ if (index !== -1) arr.splice(index, 1);
 function gethotspots(p1)
 {
   //console.log("featureHotSpots :::");
-  //console.log(featureHotSpots);
+  console.log(featureHotSpots);
 
 hotspots=new Array();
 var newUs ="createTooltipFunc" ;
@@ -139,7 +162,7 @@ var newUs4="text";
 var newValue4="come here";
 var newvalue41="back";
 
-    var strings=new Array();
+     strings=new Array();
     $.ajax({
             url: 'handleRequests.php',
             type: 'POST',
@@ -152,9 +175,7 @@ var newvalue41="back";
             }
         );
 
-        console.log(hotspots);
         var jsons=hotspots.split('*');
-        console.log(jsons)
         jsons=jsons.filter(function (el) {
   return el != "";
 });
@@ -186,7 +207,10 @@ var newvalue41="back";
             // if(checkType()==0 && previuseHotSpot.indexOf(obj['id'])!=-1)
             // {
               obj[newUs1]=obj['name'];
-              if(obj[newUs1]==name.replace('"', ''))
+
+             
+             // if(obj[newUs1]==name)
+             if(obj[newUs1]==name.replace('"', '\'\''))
               {
                 obj[newUs3]=newValue34;
               }
@@ -204,6 +228,7 @@ var newvalue41="back";
           hotSpotsIds.push(obj['id']);
         }
         console.log(strings);
+       // getYawForNextNodeInPath();
         return strings;
 }
 
