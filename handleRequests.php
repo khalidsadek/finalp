@@ -139,23 +139,7 @@ echo '</div>';
 
 if(isset($_GET['spot'])){
   $spot = $_GET['spot'];
-  // $current = $_GET['current'];
-  // $querySpot = $conn->prepare("SELECT `id2` FROM hotspot WHERE id1=? AND id2=?");
-  // $querySpot->execute([$current,$spot]);
-  // $resultSpot = $querySpot->fetch();
-  // $editSpot = $resultSpot['id2'];
-// echo '<div id="editspot">';
-//   echo '<div class="row justify-content-center">';
-//   echo    '<button data-pitchP="'.$editSpot.'" id="pitchP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-up"></i></button>';
-//   echo '</div>';
-//   echo '<div class="row justify-content-center">';
-//   echo    '<button data-yawM="'.$editSpot.'" id="yawM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-left"></i></button>';
-//   echo    '<button data-yawP="'.$editSpot.'" id="yawP" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;margin-left:30px"><i class="fas fa-arrow-right"></i></button>';
-//   echo '</div>';
-//   echo '<div class="row justify-content-center">';
-//   echo    '<button data-pitchM="'.$editSpot.'" id="pitchM" type="button" class="btn btn-danger btn-lg" style="color:red;background-color:transparent;"><i class="fas fa-arrow-down"></i></button>';
-//   echo '</div>';
-// echo '</div>';
+
 
 echo '<div id="editspot">';
   echo '<div class="row justify-content-center">';

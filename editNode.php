@@ -233,7 +233,6 @@ include "navbar.php";
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createPin">
     Add Grave
   </button>
-  <?php include 'pins.php' ?>
 </div>
 
 <?php

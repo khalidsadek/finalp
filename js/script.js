@@ -53,7 +53,7 @@ from=args;
 // if(newSearch==1)
 // {
 //   newSearch=0;
-if(checkType()==0)
+if(featureHotSpots.length!=0)
 {
        manageHotSpots(args);
        //console.log("in path");
@@ -85,6 +85,7 @@ var path = null;
    "hotSpots": gethotspots(args) ,
    "autoLoad": true,
    "stopAutoRotate":false,
+
    "hfov":100
 
 });
@@ -146,13 +147,14 @@ var newvalue41="back";
             async: false,
             success: function(response){
               hotspots=response;
-
+              //console.log(hotspots);
             },
             }
         );
 
-        //console.log(hotspots);
+        console.log(hotspots);
         var jsons=hotspots.split('*');
+        console.log(jsons)
         jsons=jsons.filter(function (el) {
   return el != "";
 });
@@ -184,7 +186,7 @@ var newvalue41="back";
             // if(checkType()==0 && previuseHotSpot.indexOf(obj['id'])!=-1)
             // {
               obj[newUs1]=obj['name'];
-              if(obj[newUs1]==name)
+              if(obj[newUs1]==name.replace('"', ''))
               {
                 obj[newUs3]=newValue34;
               }
@@ -201,13 +203,13 @@ var newvalue41="back";
           strings.push(obj);
           hotSpotsIds.push(obj['id']);
         }
-        //console.log(strings);
+        console.log(strings);
         return strings;
 }
 
 function manageHotSpots(args)
 {
-    if(checkType()==1)
+    if(featureHotSpots.length==0)
     return;
     else {
       var index = featureHotSpots.indexOf(args);
@@ -287,7 +289,8 @@ function getNodeByName()
 {
 
      name = document.getElementById('search').value;
-
+    
+     console.log(name);
   $.ajax({
     url: 'handleRequests.php',
     type: 'POST',
@@ -326,18 +329,18 @@ function hotspot(hotSpotDiv, args) {
          span.style.marginTop = -span.scrollHeight - 12 + 'px';
      }
 
-     function checkType()
-       {
-         // if(previuseHotSpot.length==0 && featureHotSpots.length==0)
-         if(featureHotSpots.length==0)
-         {
-          //console.log("checjType = 1");
-           return 1;
-}
-  //console.log("checjType = 0");
-           return 0;
+//      function checkType()
+//        {
+//          // if(previuseHotSpot.length==0 && featureHotSpots.length==0)
+//          if(featureHotSpots.length==0)
+//          {
+//           //console.log("checjType = 1");
+//            return 1;
+// }
+//   //console.log("checjType = 0");
+//            return 0;
 
-  }
+//   }
 
 
 

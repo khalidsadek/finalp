@@ -4,6 +4,7 @@
 // $password = "";
 // $dbname = "db";
 // Create connection
+
 function connect()
 {
   $conn = new mysqli("localhost", "root", "","db5");
@@ -49,12 +50,12 @@ function searchName($name)
 
   function getNode($name)
   {
+
     try{
       $conn=connect();
       $sql = "SELECT `nodeID` FROM pin WHERE name='$name'";
       $result = $conn->query($sql);
-
-        $row= $result->fetch_assoc();
+      $row= $result->fetch_assoc();
 
        return $row['nodeID'];
       } catch(Exception $e){
@@ -92,8 +93,11 @@ function getHotSpots($num)
       $id=$row["id2"];
       $pitch=$row["pitch"];
       $yaw=$row["yaw"];
-      $spots.='{"id":'.$id.',"pitch":'.$pitch.',"yaw":'.$yaw.',"clickHandlerArgs":'.$id.'}*';
+      //$spots.='{"id":'.$id.',"pitch":'.$pitch.',"yaw":'.$yaw.',"clickHandlerArgs":'.$id.'}*';
+    //  $spots.=`{"id":`.$id.`,"pitch":`.$pitch.`,"yaw":`.$yaw.`,"clickHandlerArgs":`.$id.`}*`;
       // echo $row["info"];
+      $spots.='{"id":'.$id.',"pitch":'.$pitch.',"yaw":'.$yaw.',"clickHandlerArgs":'.$id.'}*';
+
     }
 }
 
@@ -106,11 +110,14 @@ while($row1 = $result1->fetch_assoc()) {
   $id=$row1["id"];
   $line=$row1["lineNum"];
   $name=$row1["name"];
+  $name = str_replace('"', '', $name);
   $pitch=$row1["pitch"];
   $yaw=$row1["yaw"];
   // $spots.='{"id":'.$id.',"pitch":'.$pitch.',"yaw":'.$yaw.',"clickHandlerArgs":'.$id.'}*';
-  $spots.='{"id":'.$id.',"line":'.$line.',"name":"'.$name.'","pitch":'.$pitch.',"yaw":'.$yaw.'}*';
-  // echo $row["info"];
+ // $spots.=`{"id":`.$id.`,"line":`.$line.`,"name":`.$name.`,"pitch":`.$pitch.`,"yaw":`.$yaw.`}*`;
+// $spots.='{"id":'.$id.',"line":'.$line.',"name":'.$name.',"pitch":'.$pitch.',"yaw":'.$yaw.'}*';
+ // echo $row["info"];
+ $spots.='{"id":'.$id.',"line":'.$line.',"name":"'.$name.'","pitch":'.$pitch.',"yaw":'.$yaw.'}*';
 }
 }
 
