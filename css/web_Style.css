@@ -29,14 +29,14 @@ body{
 .park-hot-spot.hs-park-overview {
   width: 100px;
   height: 100px;
-  background-image: url(../arrow.png);
+  background-image: url(../images/arrow.png);
   /* text-indent: -10000px; */
   animation: 3s ease-in-out infinite both anim;
 }
 .park-hot-spot.hs-here {
   width: 100px;
   height: 100px;
-  background-image: url(../green_arrow.png);
+  background-image: url(../images/green_arrow.png);
   /* text-indent: -10000px; */
   animation: 3s ease-in-out infinite both anim;
 }
@@ -50,7 +50,7 @@ body{
  background-repeat: no-repeat;
  width: 100px;
  height: 100px;
- background-image: url(../green_arrow.png);
+ background-image: url(../images/green_arrow.png);
  /* text-indent: -10000px; */
  /* animation: 3s ease-in-out infinite both anim; */
  }
@@ -62,7 +62,7 @@ body{
  background-repeat: no-repeat;
  width: 100px;
  height: 100px;
- background-image: url(../grave.png);
+ background-image: url(../images/grave.png);
  /* text-indent: -10000px; */
  /* animation: 3s ease-in-out infinite both anim; */
 }
@@ -71,7 +71,7 @@ body{
  background-repeat: no-repeat;
  width: 100px;
  height: 100px;
- background-image: url(../green_grave.png);
+ background-image: url(../images/green_grave.png);
  /* text-indent: -10000px; */
  /* animation: 3s ease-in-out infinite both anim; */
 }

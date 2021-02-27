@@ -329,7 +329,7 @@ $(document).on('click','#PpitchM',function (e) {
                   PpitchM:PpitchM},
             //async: false,
             success: function(response){
-              console.log(response);
+              // console.log(response);
               $("#pins-tbody").replaceWith(response);
               removeHotspots();
               loadViewr();
@@ -353,7 +353,7 @@ $(document).on('click','#PpitchP',function (e) {
                   PpitchP:PpitchP},
             //async: false,
             success: function(response){
-              console.log(response);
+              // console.log(response);
               $("#pins-tbody").replaceWith(response);
               removeHotspots();
               loadViewr();
@@ -376,7 +376,7 @@ $(document).on('click','#PyawM',function (e) {
                   PyawM:PyawM},
             //async: false,
             success: function(response){
-              console.log(response);
+              // console.log(response);
               $("#pins-tbody").replaceWith(response);
               removeHotspots();
               loadViewr();
@@ -399,7 +399,7 @@ $(document).on('click','#PyawP',function (e) {
                   PyawP:PyawP},
             //async: false,
             success: function(response){
-              console.log(response);
+              // console.log(response);
               $("#pins-tbody").replaceWith(response);
               removeHotspots();
               loadViewr();

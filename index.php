@@ -1,5 +1,5 @@
 <?php
-require('phpFile.php');
+require('handleRequests.php');
 require('Dijkstra.php');
 session_start();
 $pageTitle = 'Main';
@@ -100,7 +100,7 @@ include "navbar.php";
             success: function(response){
                 //$("pin-card").removeClass('d-none')
                 $("#pin-card").replaceWith(response)
-                console.log(response);
+                // console.log(response);
                 $("#show-list").addClass('d-none');
             }
 

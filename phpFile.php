@@ -18,7 +18,7 @@ return $conn;
 }
 
 
-function searchName($name)
+/* function searchName($name)
 {
    $conn=connect();
     $name = str_replace("'", "\'", $name);
@@ -34,8 +34,7 @@ function searchName($name)
      }
    } else {
      echo '<p class="list-group-item border-1">No Record</p>';
-    //   echo "No Record";
-   }
+   } */
 
 //    if ($result) {
 //   foreach ($result as $row) {
@@ -44,11 +43,11 @@ function searchName($name)
 // } else {
 //   echo '<p class="list-group-item border-1">No Record</p>';
 // }
-  }
+//  }
 
 
 
-  function getNode($name)
+/*   function getNode($name)
   {
     $name = str_replace("'", "\'", $name);
     try{
@@ -62,9 +61,9 @@ function searchName($name)
         echo $e->getMessage();
       }
 
-  }
+  } */
 
-  function getNodePath($nodeId1)//image path
+/*   function getNodePath($nodeId1)//image path
   {
       $conn=connect();
       $sql = "SELECT `info` FROM node WHERE id='$nodeId1'";
@@ -73,14 +72,14 @@ function searchName($name)
         $result= $result->fetch_assoc();
 
         return $result['info'];
-  }
+  } */
 
 
 
 
 
 
-function getHotSpots($num)
+/* function getHotSpots($num)
 {
 
     $spots='';
@@ -124,11 +123,11 @@ while($row1 = $result1->fetch_assoc()) {
 
 // echo $spots;
 return $spots;
-}
+} */
 
 
 
-function getJsonFormat()
+/* function getJsonFormat()
 {
 
   $conn=connect();
@@ -148,7 +147,7 @@ while($row = mysqli_fetch_array($result)){
 // Encoding array in JSON format
 // echo json_encode($return_arr);
 return $return_arr;
-}
+} */
 
 
 

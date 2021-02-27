@@ -1,8 +1,6 @@
 function refresh_page(){
   location.reload();
 }
-// $(function(){
-
 
 var id;
 var to;
@@ -14,51 +12,30 @@ var name;
 var currentNode;
 var hotspots;
 var hotSpotsIds=new Array();
-// var previuseHotSpot=new Array();
 var featureHotSpots=new Array();
 
 
 loading();
-// loadPoints()
 function loading()
 {
-      // console.log(previuseHotSpot);
  if(id!=null)
      openModal(null,id);
      else {
        id=1;
        openModal(null,id);
      }
-     //
-     // openModal(null,1);
 }
 
 
 
 function  openModal(event,args){
-//console.log("==================================11====");
+
 from=args;
 
-//console.log("args: ");
-//console.log(args);
-//console.log("}to : ");
-//console.log(to);
 
- // featureHotSpots.shift();
-// if(args==to)
-//    {
-//      alert("you have arrived to your distination");
-//    }
-   // else {
-//console.log("newSearch :: ");
-//console.log(newSearch);
-// if(newSearch==1)
-// {
-//   newSearch=0;
 if(featureHotSpots.length!=0)
 {
        manageHotSpots(args);
-       //console.log("in path");
  }
 
        id=args;
@@ -86,22 +63,19 @@ var path = null;
    "panorama": "/finalp/"+path,
    "hotSpots": gethotspots(args) ,
    "autoLoad": true,
-   "stopAutoRotate":false,
+  //  "stopAutoRotate":false,
     "yaw":getYawForNextNodeInPath(),
     //"yaw":0,
     "hfov":100
 
 });
 
-
 if(args==to)
    {
-
-    // var name="";
-    // var to="";
-     setTimeout(function() { alert("you have arrived to your distination"); }, 220);
+    
+    setTimeout(function() { alert("you have arrived to your distination"); }, 1000);
   
-   }
+   } 
 }
 
 function getYawForNextNodeInPath()
@@ -112,17 +86,20 @@ function getYawForNextNodeInPath()
     for(x in strings){
       if(featureHotSpots[0]==strings[x]['id'])
         return strings[x]['yaw']
-      //  console.log(strings[x]['yaw'])
     }
   }else if(featureHotSpots.length==0)
           {
             for(x in strings){
-              if(name==strings[x]['name'])
-                return strings[x]['yaw']
-              //  console.log(strings[x]['yaw'])
+        
+              if(strings[x]['name']!=null){ 
+                var n = strings[x]['name'].replace("''",'"');
+      
+              if(name==strings[x]['name'] ||  name==n){
+                 return strings[x]['yaw'];
+              }
             }
           }
-
+}
   return 0;
 }
 function removeHotspots()
@@ -143,7 +120,7 @@ if (index !== -1) arr.splice(index, 1);
 function gethotspots(p1)
 {
   //console.log("featureHotSpots :::");
-  console.log(featureHotSpots);
+  // console.log(featureHotSpots);
 
 hotspots=new Array();
 var newUs ="createTooltipFunc" ;
@@ -158,9 +135,7 @@ var newValue32="custom-hotspot";
 var newValue33="custom-hotspot-here";
 var newValue34="custom-hotspot-green-grave";
 // var newValue32="custom-hotspot-grave";
-var newUs4="text";
-var newValue4="come here";
-var newvalue41="back";
+
 
      strings=new Array();
     $.ajax({
@@ -184,51 +159,39 @@ var newvalue41="back";
         {
           var obj = JSON.parse(jsons[i]);
           obj[newUs]=newValue;
-          // obj[newUs2]=newValue2;
-          // if(obj['cssClass']==null)
+   
           if(obj['name']==null){
-          // if(checkType()==1 || (checkType()==0 && featureHotSpots.indexOf(obj['id'])!=-1))
-          // {
+
           obj[newUs1]=obj['id'];
           obj[newUs2]=newValue2;
           if(featureHotSpots[0]==obj[newUs1])
           {
-            //   console.console.log("featureHotSpots[0]  :::::");
-            // console.console.log(featureHotSpots[0]);
                 obj[newUs3]=newValue33;
           }else {
               obj[newUs3]=newValue3;
           }
 
-          // obj[newUs4]=newValue4;
-        // }
         }
           else {
-            // if(checkType()==0 && previuseHotSpot.indexOf(obj['id'])!=-1)
-            // {
+
               obj[newUs1]=obj['name'];
 
              
              // if(obj[newUs1]==name)
              if(obj[newUs1]==name.replace('"', '\'\''))
               {
+                auRo = 0;
                 obj[newUs3]=newValue34;
               }
               else {
                 obj[newUs3]=newValue32;
               }
 
-              // obj[newUs4]=;
-              // obj[newUs4]=newvalue41;
-             // }
           }
 
-          // }
           strings.push(obj);
           hotSpotsIds.push(obj['id']);
         }
-        console.log(strings);
-       // getYawForNextNodeInPath();
         return strings;
 }
 
@@ -243,8 +206,7 @@ if (index==0) {
   featureHotSpots.shift();
     }
     else {
-      //console.log("manage From :: ");
-      //console.log(args);
+
       if(newSearch==0)
       {
         featureHotSpots.unshift(currentNode);
@@ -252,14 +214,9 @@ if (index==0) {
       else {
         newSearch=0;
       }
-      // featureHotSpots.unshift(currentNode);
 
   }
 }
-
-// console.log("featureHotSpots : ");
-// console.log(featureHotSpots);
- // featureHotSpots.shift();
 
 }
 
@@ -292,7 +249,7 @@ function getPath(Destination) {
       to=featureHotSpots[featureHotSpots.length-1];
   //console.log(to);
 
-    console.log(featureHotSpots);
+    // console.log(featureHotSpots);
     },
   });
   featureHotSpots.shift();
@@ -354,19 +311,4 @@ function hotspot(hotSpotDiv, args) {
          span.style.marginTop = -span.scrollHeight - 12 + 'px';
      }
 
-//      function checkType()
-//        {
-//          // if(previuseHotSpot.length==0 && featureHotSpots.length==0)
-//          if(featureHotSpots.length==0)
-//          {
-//           //console.log("checjType = 1");
-//            return 1;
-// }
-//   //console.log("checjType = 0");
-//            return 0;
 
-//   }
-
-
-
-// })

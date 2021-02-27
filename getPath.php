@@ -1,45 +1,29 @@
 <?php
 session_start();
-//var_dump(unserialize($_SESSION['graph_arr']));
-//
-//    // $a1=  $_GET['']
-  require('phpFile.php');
+
+  require('handleRequests.php');
   require('Dijkstra.php');
 // //
 $from=$_POST['From'];
 $des= $_POST['Destination'];
-//
-// // print $from;
-//
-// // $Destination = $_POST['Destination'];
-// // print $Destination;
-//
-   $edges=getJsonFormat();
-   $g = new Graph();
-//   // echo "\n";
-//   // echo "\n";
-   foreach($edges as $ed) {
-     $g->addedge($ed['id1'],$ed['id2'],$ed['weight']);
-    }
 
- // $jsons=explode("*",$result);
+$edges=getJsonFormat();
+$g = new Graph();
 
-// $jsons=$jsons.filter(function (el) {
-// return el != "";
-// });
-///==============$graph = unserialize($_SESSION['graph_arr']);
+foreach($edges as $ed) {
+   $g->addedge($ed['id1'],$ed['id2'],$ed['weight']);
+}
 
-$graph=$g;
-
-
-// print_r(getpath($from,$_SESSION['graph_arr']));
-list($distances, $prev) = $graph->paths_from($from);
+$myfile = fopen("graph.txt", "w") or die("Unable to open file!");
+fwrite($myfile,serialize($g));
+fclose($myfile);
+//////////////////////////////////////////////////////////
+list($distances, $prev) = $g->paths_from($from);
 // //
-$path = $graph->paths_to($prev, $des);
-// // $path = $g->paths_to($prev, "3");
-// var_dump($_SESSION['graph_arr']);
+$path = $g->paths_to($prev, $des);
+
 
 
 
 print_r($path);
-// print_r($graph);
+
