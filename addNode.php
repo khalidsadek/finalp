@@ -15,27 +15,18 @@ session_start();
         $fileExt = explode('.', $fileName);
         $fileActualExt = strtolower(end($fileExt));
 
-        //$allowed = array('jpg', 'jpeg', 'png');
+        $allowed = array('jpg', 'jpeg', 'png');
 
-        //if (in_array($fileActualExt, $allowed)) {
-        //    if ($fileError === 0) {
-        //        if ($fileSize < 100000 ) {//500000kb=500mb   my file should be less than 1000000
+        if (in_array($fileActualExt, $allowed)) {
+           if ($fileError == 0) {
+               if ($fileSize < 10000000 ) { // 1MB = 1,000,000B
                     //$fileNameNew = uniqid('', ture).".".$fileActualExt;//getting unique id for the image in microseconds to prevent overriding on existed image
                     $fileN= $_POST['id'].".".$fileActualExt;
                     $fileDestination = 'uploads/'.$fileN;//USING ACTUAL NAME
                     // $fileDestination = 'uploads/'.$fileNameNew;//USING MICROSECONDS NAME
                     move_uploaded_file($fileTmpName, $fileDestination);
                     //header("Location: /finalp/nodes.php");
-        //        } else {
-        //            echo "your file is too big !";
-        //        }
-        //    } else {
-        //        echo "there was an error uploading your file !";
-        //    }
-        // } else{
-        //     echo "you cannot upload files of this type !";
-        // }
-
+       ///////////////////////////////////////////////////////////       
        $linename = $_POST['linename'];
        $id = $_POST['id'];
        $info = $fileDestination;
@@ -59,6 +50,17 @@ session_start();
 
 
         /////////////////////////////////////////////////////////////////////////
+    } else {
+        echo "<script>alert('File is too big')</script>";
+      }
+    }  else {
+       echo "<script>alert('there was an error uploading your file !')</script>";
+       //echo "there was an error uploading your file !";
+   }  
+} else{
+    echo "<script>alert('you cannot upload files of this type !')</script>";
+    //echo "you cannot upload files of this type !";
+}
 
     }
 
@@ -75,25 +77,14 @@ session_start();
 
         $allowed = array('jpg', 'jpeg', 'png');
 
-        //if (in_array($fileActualExt, $allowed)) {
-        //    if ($fileError === 0) {
-        //        if ($fileSize < 1000000 ) {//500000kb=500mb   my file should be less than 1000000
-                    //$fileNameNew = uniqid('', ture).".".$fileActualExt;//getting unique id for the image in microseconds to prevent overriding on existed image
+        if (in_array($fileActualExt, $allowed)) {
+            if ($fileError == 0) {
+                if ($fileSize < 10000000 ) {//500000kb=500mb   my file should be less than 1000000
                     $fileN= $_POST['id'].".".$fileActualExt;//.".".$fileActualExt;
                     $fileDestination = 'uploads/'.$fileN;//USING ACTUAL NAME
-                    // $fileDestination = 'uploads/'.$fileNameNew;//USING MICROSECONDS NAME
                     echo "befoooooooreeeee moveeeeeeeeeee addNideee,,";
                     move_uploaded_file($fileTmpName, $fileDestination);
-                    //header("Location: /finalp/nodes.php");
-        //        } else {
-        //            echo "your file is too big !";
-        //        }
-        //    } else {
-         //       echo "there was an error uploading your file !";
-        //    }
-        //} else{
-        //    echo "you cannot upload files of this type !";
-        //}
+///////////////////////////////////////////////////////////
 
         $linename = $_POST['linename'];
         $id = $_POST['id'];
@@ -108,8 +99,22 @@ session_start();
         }else{
             echo "<script>alert('ID should be numeric')</script>";
         }
+            /////////////////////////////////////////////////////////////////////////
+        } else {
+            echo "<script>alert('File is too big')</script>";
+          }
+        }  else {
+           echo "<script>alert('there was an error uploading your file !')</script>";
+           //echo "there was an error uploading your file !";
+       }  
+    } else{
+        echo "<script>alert('you cannot upload files of this type !')</script>";
+        //echo "you cannot upload files of this type !";
     }
-
+            }
+        
+    
+        
 include "navbar.php";
 ?>
 <div class="container py-3">

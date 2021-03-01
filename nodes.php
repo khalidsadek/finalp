@@ -18,15 +18,37 @@ try {
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();
 }
+
+/* if (isset($_GET['page_no']) && $_GET['page_no']!="") {
+    $page_no = $_GET['page_no'];
+    } else {
+        $page_no = 1;
+        } */
 ################################################
 include "navbar.php";
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<style>
+/* table{
+  overflow-y:scroll;
+  height:1000px;
+  display:block;
+} */
+.my-custom-scrollbar {
+position: relative;
+height: 800px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
+</style>
 <div class="container">
 
   <div style="width:520px;margin:0px auto;margin-top:30px;">
     <h5>select line Number :</h5>
-    <select class="livesearch selectLine" style="width:400px;">
+    <select class="livesearch selectLine form-control" style="width:400px;margin-bottom:50px">
       <option value="">Choose line</option>
       <?php foreach ($resultLineNames as $item): ?>
             <option value="<?php echo $item['line_name'] ?>"><?php echo $item['line_name'] ?></option>
@@ -36,8 +58,8 @@ include "navbar.php";
   </div>
 
 
-
-<table class="table table-hover text-center">
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+<table class="table table-hover text-center ">
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -60,6 +82,18 @@ include "navbar.php";
     <?php } ?>
   </tbody>
 </table>
+</div>
+<!-- <div class="row justify-content-center">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+</div> -->
     <a type="button" class="btn btn-primary" href="/finalp/addNode.php">
         Create Node
     </a>

@@ -14,7 +14,7 @@ function printPins($curND){
   echo '<tbody id="pins-tbody">';
     foreach($GETPINS as $item) {
   echo    '<tr>';
-  echo      '<th scope="row">'.$item['id'].'</th>';
+  echo      '<td scope="row">'.$item['id'].'</td>';
   echo      '<td>'.$item['lineNum'].'</td>';
   echo      '<td>'.$item['name'].'</td>';
   echo      '<td>'.$item['pitch'].'</td>';
@@ -38,14 +38,14 @@ function printHotspots($node){//FOR
     echo '<tbody id="hotspots_tbody">';
     foreach($hotspotsToEditNode as $item) { 
     echo '<tr>';
-    echo    '<th scope="row">'.$item['id1'].'</th>';
+    echo    '<td scope="row">'.$item['id1'].'</td>';
     echo    '<td>'.$item['id2'].'</td>';
 
     echo    '<td>'.$item['pitch'].'</td>';
     echo    '<td>'.$item['yaw'].'</td>';
     echo    '<td>'.$item['weight'].'</td>';
     echo    '<td>';
-    echo      '<a type="button" href="/finalp/edit-hotspot.php?currentnode='.$item['id1'].'&nextnode='.$item['id2'].'" class="btn btn-info edit"><i class="far fa-edit"></i></a> ';
+    echo      '<button data-nextNodeID="'.$item['id2'].'" type="button" class="btn btn-info editHotspot"><i class="far fa-edit"></i></button>';
     echo      '<button data-currentnode="'.$item['id1'].'" data-nextnode="'.$item['id2'].'" type="button" class="btn btn-danger deleteHotspot"><i class="fas fa-trash-alt"></i></button>';
     echo    '</td>';
     echo '</tr>';
@@ -227,7 +227,7 @@ if(isset($_GET['line'])){
 }
 
 if(isset($_GET['pin']) && $_GET['current']){
-  $pin = $_GET['pin'];
+  $pin = str_replace("''", '"', $_GET['pin']);
   $current = $_GET['current'];
 
   $queryPin = $conn->prepare("SELECT `id`,`lineNum` FROM pin WHERE nodeID=? AND name=?");

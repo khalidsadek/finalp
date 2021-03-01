@@ -4,9 +4,9 @@ function refresh_page(){
 
 var id;
 var to;
-// var from;
+ var from;
 var strings;
-var newSearch;
+var newSearch=0;//////////////
 var viewer;
 var name;
 var currentNode;
@@ -81,7 +81,6 @@ if(args==to)
 function getYawForNextNodeInPath()
 {
 
-  
   if(featureHotSpots.length > 0){
     for(x in strings){
       if(featureHotSpots[0]==strings[x]['id'])
@@ -99,8 +98,34 @@ function getYawForNextNodeInPath()
               }
             }
           }
-}
-  return 0;
+ }
+ return 0;
+//  console.log(newSearch);
+//  console.log(strings);
+// // if(newSearch==0)
+// //  {
+//    for(y in strings){
+//      // console.log(x);
+//      if(strings[y]['name']!=null)
+//      {
+//        console.log("iff tryue");
+//        console.log(id);
+//        console.log("str yaww :" + strings[y]['id']);
+//        console.log("args fff :" + from);
+//        if(from==1)
+//        return 0;
+     
+      
+//        if(from==strings[y]['id']){
+        
+//          return strings[y]['yaw'];
+//       }
+      
+//      }
+    
+//   // }
+//  }
+//  return 0;
 }
 function removeHotspots()
 {
@@ -192,6 +217,7 @@ var newValue34="custom-hotspot-green-grave";
           strings.push(obj);
           hotSpotsIds.push(obj['id']);
         }
+        // console.log(strings);
         return strings;
 }
 

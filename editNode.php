@@ -142,7 +142,9 @@ include "navbar.php";
                 <option value="<?php echo $h['id2']; ?>"><?php echo $h['id2']; ?></option>
               <?php } ?>
           <?php foreach ($resulPin as $p) { ?>
-                <option value="<?php echo $p['name']; ?>"><?php echo $p['name']; ?></option>
+          <?php $pin_name = str_replace('"', '\'\'', $p['name']); ?> 
+          <option value="<?php echo $pin_name; ?>"><?php echo $pin_name; ?></option>
+                <!-- <option value="<php echo $p['name']; ?>"><php echo $p['name']; ?></option> -->
               <?php } ?>
 
         </select>
@@ -531,6 +533,7 @@ $(document).on('change','.SelectToMove',function(){
       })
     
   } else{
+    console.log(target)
     $.ajax({
       type: "GET",
       url: "/finalp/handleRequests.php",
@@ -611,7 +614,7 @@ var newvalue41="back";
             }
         );
 
-        console.log(hotspots);
+        // console.log(hotspots);
         var jsons=hotspots.split('*');
         jsons=jsons.filter(function (el) {
   return el != "";
